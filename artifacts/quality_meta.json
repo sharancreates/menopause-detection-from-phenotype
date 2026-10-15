@@ -1,0 +1,76 @@
+{
+  "SYMPTOMS": {
+    "vasomotor": [
+      "HOTFLAS0",
+      "NITESWE0",
+      "COLDSWE0"
+    ],
+    "psychological": [
+      "FEELBLU0",
+      "IRRITAB0",
+      "NRVOUS0",
+      "FORGET0",
+      "MOODCHG0",
+      "FEARFULA0"
+    ],
+    "somatic": [
+      "STIFF0",
+      "HDACHE0",
+      "VAGINDR0",
+      "HARTRAC0",
+      "DIZZY0",
+      "LEAKURI0"
+    ],
+    "sleep": [
+      "TRBLSLE0",
+      "WAKEUP0",
+      "WAKEARL0"
+    ]
+  },
+  "SYMP_COLS": [
+    "HOTFLAS0",
+    "NITESWE0",
+    "COLDSWE0",
+    "FEELBLU0",
+    "IRRITAB0",
+    "NRVOUS0",
+    "FORGET0",
+    "MOODCHG0",
+    "FEARFULA0",
+    "STIFF0",
+    "HDACHE0",
+    "VAGINDR0",
+    "HARTRAC0",
+    "DIZZY0",
+    "LEAKURI0",
+    "TRBLSLE0",
+    "WAKEUP0",
+    "WAKEARL0"
+  ],
+  "HORM_COLS": [
+    "FSH0",
+    "E2AVE0",
+    "T0",
+    "TSH0",
+    "SHBG0",
+    "DHAS0"
+  ],
+  "ANTHRO": [
+    "BMI0"
+  ],
+  "dropped_baseline_columns": [
+    "FLASHPH0",
+    "FLASHEB0",
+    "FLASHEM0",
+    "HORMCRE0",
+    "HORMPIL0",
+    "ESTRPTC0",
+    "BCP0"
+  ],
+  "dropped_baseline_rows_n": 12,
+  "sentinels": [
+    "Missing",
+    "Do not know",
+    "Do Not Know"
+  ]
+}

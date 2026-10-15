@@ -1,0 +1,53 @@
+{
+  "Phenotype A (lower burden)": {
+    "n": 1977,
+    "domain_scores": {
+      "HOTFLAS0": 0.19,
+      "NITESWE0": 0.22,
+      "COLDSWE0": 0.0,
+      "FEELBLU0": 0.63,
+      "IRRITAB0": 0.77,
+      "NRVOUS0": 0.67,
+      "FORGET0": 0.76,
+      "MOODCHG0": 0.47,
+      "FEARFULA0": 0.12,
+      "STIFF0": 1.21,
+      "HDACHE0": 0.69,
+      "VAGINDR0": 0.15,
+      "HARTRAC0": 0.24,
+      "DIZZY0": 0.18,
+      "LEAKURI0": 0.27,
+      "TRBLSLE0": 0.61,
+      "WAKEUP0": 1.28,
+      "WAKEARL0": 0.81
+    },
+    "description": "Lower symptom burden across all domains (vasomotor, psychological, somatic, sleep)."
+  },
+  "Phenotype B (higher, multi-domain burden)": {
+    "n": 655,
+    "domain_scores": {
+      "HOTFLAS0": 1.07,
+      "NITESWE0": 1.0,
+      "COLDSWE0": 0.64,
+      "FEELBLU0": 1.44,
+      "IRRITAB0": 1.42,
+      "NRVOUS0": 1.57,
+      "FORGET0": 1.61,
+      "MOODCHG0": 1.35,
+      "FEARFULA0": 0.71,
+      "STIFF0": 2.05,
+      "HDACHE0": 1.15,
+      "VAGINDR0": 0.76,
+      "HARTRAC0": 0.84,
+      "DIZZY0": 0.59,
+      "LEAKURI0": 1.26,
+      "TRBLSLE0": 1.45,
+      "WAKEUP0": 2.21,
+      "WAKEARL0": 1.53
+    },
+    "description": "Elevated symptom burden across all domains simultaneously, not one dominant domain; skews toward later menopausal stages."
+  },
+  "Atypical / mixed profile": {
+    "description": "Flagged by consensus anomaly detection (Isolation Forest + LOF); reflects high multi-domain variance."
+  }
+}
