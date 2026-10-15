@@ -134,37 +134,68 @@ From raw Stata punchcards to production-grade scikit-learn transformers, explore
 
 ## ⚡ Instant Gratification: Quickstart
 
-Want to test a profile right now in your terminal? Let's go! 💨
+### 🐳 1. Single-Command Docker Deployment (Recommended)
 
-### 1. Clone the Enchanted Repo
+Zero host dependencies required! Launches the unified production container (Node-compiled React SPA + FastAPI backend) on port `8000`:
+
 ```bash
+# Clone the repository
 git clone https://github.com/sharancreates/menopause-detection-from-phenotype.git
 cd menopause-detection-from-phenotype
+
+# Build and launch in one command
+docker compose up --build
 ```
 
-### 2. Summon the Dependencies
+- 🌐 **Interactive Web Questionnaire & Dashboard**: Open [http://localhost:8000](http://localhost:8000)
+- 📖 **Interactive OpenAPI / Swagger Documentation**: Open [http://localhost:8000/docs](http://localhost:8000/docs)
+- 🩺 **Container Health Probe**: `curl http://localhost:8000/api/health`
+
+---
+
+### 💻 2. Local Python & Node Development
+
+If you prefer running directly on your host machine:
+
+#### Backend Microservice (FastAPI + Uvicorn)
 ```bash
+# Install Python dependencies
 pip install -r requirements.txt
-```
 
-### 3. Generate or Extract the Model Artifacts
-```bash
+# Ensure models are serialized in artifacts/
 python export_artifacts.py
+
+# Launch FastAPI ASGI server on port 8000
+uvicorn main:app --reload --port 8000
 ```
 
-### 4. Run the Real-Time Self-Assessment Engine
+#### Frontend Single Page Application (React + Vite)
 ```bash
-python demo_self_assessment.py
+cd frontend
+npm install
+npm run dev
+# Vite dev server starts on http://localhost:5173 with proxy forwarding /api to :8000
 ```
 
-```json
-{
-  "cluster": 1,
-  "phenotype": "Phenotype B (higher, multi-domain burden)",
-  "confidence": 0.941,
-  "atypical_flag": false
-}
+#### Run All Automated Tests
+```bash
+# 31 unit, transformer, inference, and API integration tests
+python -m pytest tests/ -v
+
+# Validate frontend production build
+npm run build --prefix frontend
 ```
+
+---
+
+## 📡 REST API Reference
+
+| Method | Endpoint | Description | Sample Request / Response |
+|:---:|:---|:---|:---|
+| `GET` | `/api/health` | Health probe & model cache status | Returns `{"status": "healthy", "models_loaded": true, "artifact_count": 6}` |
+| `GET` | `/api/metadata` | 18 symptoms, 4 domains, and Likert scale | Full codebook and clinical domain mapping |
+| `POST` | `/api/assess` | Score symptom dictionary against ML pipeline | Accepts JSON `{"HOTFLAS0": 3, ...}`, returns phenotype, confidence, and outlier status |
+| `GET` | `/docs` | Interactive OpenAPI / Swagger UI | Interactive API exploration and test playground |
 
 ---
 

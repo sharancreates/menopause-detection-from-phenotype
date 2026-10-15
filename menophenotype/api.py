@@ -4,10 +4,13 @@ Exposes REST endpoints for symptom self-assessment scoring, questionnaire metada
 and health monitoring backed by the SWAN baseline ML models.
 """
 
+import os
 from contextlib import asynccontextmanager
 from typing import Any, Dict
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from menophenotype.inference import assess, load_models, resolve_artifact_dir
 from menophenotype.schemas import (
@@ -20,6 +23,8 @@ from menophenotype.schemas import (
     SymptomAssessmentInput,
     SymptomAssessmentOutput,
 )
+
+FRONTEND_DIST = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend", "dist")
 
 
 @asynccontextmanager
@@ -51,10 +56,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Mount static asset directory if built
+if os.path.exists(os.path.join(FRONTEND_DIST, "assets")):
+    app.mount("/assets", StaticFiles(directory=os.path.join(FRONTEND_DIST, "assets")), name="assets")
+
 
 @app.get("/", tags=["Info"])
-def root_info() -> Dict[str, Any]:
-    """Basic service information and API documentation route."""
+def root_info(request: Request) -> Any:
+    """Serve SPA index.html for browser requests, or JSON API info for API consumers and tests."""
+    accept = request.headers.get("accept", "")
+    index_file = os.path.join(FRONTEND_DIST, "index.html")
+
+    # If browser requests HTML and frontend/dist exists, serve client SPA
+    if "text/html" in accept and os.path.exists(index_file):
+        return FileResponse(index_file)
+
     return {
         "service": "MenoPhenotype API",
         "version": "1.0.0",
@@ -111,3 +127,22 @@ def assess_symptoms(payload: SymptomAssessmentInput) -> Dict[str, Any]:
             status_code=500,
             detail=f"Inference error during symptom assessment: {str(e)}"
         )
+
+
+@app.get("/{full_path:path}", include_in_schema=False)
+def serve_spa_fallback(full_path: str) -> Any:
+    """Serve static SPA assets or index.html for non-API client paths."""
+    # Do not intercept API, docs, or OpenAPI schema routes
+    if full_path.startswith("api") or full_path.startswith("docs") or full_path.startswith("openapi"):
+        raise HTTPException(status_code=404, detail="Not Found")
+
+    target_file = os.path.join(FRONTEND_DIST, full_path)
+    if os.path.exists(target_file) and os.path.isfile(target_file):
+        return FileResponse(target_file)
+
+    index_file = os.path.join(FRONTEND_DIST, "index.html")
+    if os.path.exists(index_file):
+        return FileResponse(index_file)
+
+    raise HTTPException(status_code=404, detail="Not Found")
+
