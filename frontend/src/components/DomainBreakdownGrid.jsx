@@ -28,7 +28,7 @@ const DOMAIN_METADATA = [
   {
     key: 'sleep',
     title: 'Sleep Continuity Domain',
-    subtitle: 'Nocturnal Rest & Sleep Quality',
+    subtitle: 'Nocturnal Rest & Sleep Architecture',
     color: 'var(--domain-sleep)',
     swanBenchmark: 1.40,
     symptomIds: ['TRBLSLE0', 'WAKEUP0', 'WAKEARL0'],
@@ -44,10 +44,10 @@ const LIKERT_LABELS = {
 };
 
 function getSeverityTier(score) {
-  if (score < 1.0) return { label: 'Mild', color: '#10b981', bg: 'rgba(16, 185, 129, 0.15)' };
-  if (score < 2.0) return { label: 'Moderate', color: '#38bdf8', bg: 'rgba(56, 189, 248, 0.15)' };
-  if (score < 3.0) return { label: 'Elevated', color: '#f59e0b', bg: 'rgba(245, 158, 11, 0.15)' };
-  return { label: 'Severe', color: '#f43f5e', bg: 'rgba(244, 63, 94, 0.15)' };
+  if (score < 1.0) return { label: 'Mild', color: 'var(--color-mint)', bg: 'var(--color-mint-light)' };
+  if (score < 2.0) return { label: 'Moderate', color: 'var(--color-primary)', bg: 'var(--color-primary-light)' };
+  if (score < 3.0) return { label: 'Elevated', color: '#B58342', bg: 'rgba(181, 131, 66, 0.12)' };
+  return { label: 'Severe', color: 'var(--color-accent)', bg: 'var(--color-accent-light)' };
 }
 
 export default function DomainBreakdownGrid({ responses = {}, symptoms = [] }) {
@@ -66,13 +66,19 @@ export default function DomainBreakdownGrid({ responses = {}, symptoms = [] }) {
   }, {});
 
   return (
-    <div style={{ marginBottom: '2rem' }}>
-      <div style={{ marginBottom: '1rem' }}>
-        <h3 style={{ fontSize: '1.35rem', letterSpacing: '-0.02em', marginBottom: '0.25rem' }}>
-          Domain Severity Breakdown
+    <div style={{ marginBottom: '2.5rem' }}>
+      <div style={{ marginBottom: '1.25rem' }}>
+        <h3 style={{
+          fontFamily: 'var(--font-serif)',
+          fontSize: '1.75rem',
+          letterSpacing: '-0.02em',
+          marginBottom: '0.35rem',
+          color: 'var(--text-primary)'
+        }}>
+          Domain Severity & Symptom Breakdown
         </h3>
-        <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-          Detailed examination of symptoms, calculated averages, and clinical severity levels.
+        <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)' }}>
+          Detailed examination of quantified symptom frequencies compared directly against SWAN longitudinal medians.
         </p>
       </div>
 
@@ -80,7 +86,7 @@ export default function DomainBreakdownGrid({ responses = {}, symptoms = [] }) {
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: '1.25rem',
+          gap: '1.5rem',
         }}
       >
         {DOMAIN_METADATA.map((domain) => {
@@ -95,24 +101,26 @@ export default function DomainBreakdownGrid({ responses = {}, symptoms = [] }) {
           const diffFromSwan = avgScore - domain.swanBenchmark;
           const diffText =
             diffFromSwan > 0
-              ? `+${diffFromSwan.toFixed(2)} above SWAN avg`
-              : `${diffFromSwan.toFixed(2)} vs SWAN avg`;
+              ? `+${diffFromSwan.toFixed(2)} vs SWAN baseline`
+              : `${diffFromSwan.toFixed(2)} vs SWAN baseline`;
 
           return (
             <div
               key={domain.key}
               className="glass-panel"
               style={{
-                padding: '1.5rem',
+                padding: '1.75rem',
                 borderRadius: 'var(--radius-lg)',
                 borderTop: `4px solid ${domain.color}`,
+                background: '#FFFFFF',
+                boxShadow: 'var(--shadow-card)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
               }}
             >
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.85rem' }}>
                   <span className={`domain-badge ${domain.key}`}>
                     {domain.subtitle}
                   </span>
@@ -120,28 +128,44 @@ export default function DomainBreakdownGrid({ responses = {}, symptoms = [] }) {
                     style={{
                       fontSize: '0.72rem',
                       fontWeight: '700',
-                      padding: '0.2rem 0.6rem',
+                      padding: '0.22rem 0.65rem',
                       borderRadius: 'var(--radius-full)',
                       color: severity.color,
                       background: severity.bg,
-                      border: `1px solid ${severity.color}44`,
+                      border: `1px solid ${severity.color}33`,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.5px'
                     }}
                   >
                     {severity.label} Burden
                   </span>
                 </div>
 
-                <h4 style={{ fontSize: '1.15rem', marginBottom: '0.4rem', color: 'var(--text-primary)' }}>
+                <h4 style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: '1.35rem',
+                  marginBottom: '0.45rem',
+                  color: 'var(--text-primary)',
+                  textTransform: 'none',
+                  fontWeight: '500',
+                  letterSpacing: 'normal'
+                }}>
                   {domain.title}
                 </h4>
 
                 {/* Score Summary */}
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                  <span style={{ fontSize: '1.8rem', fontWeight: '800', color: domain.color }}>
+                  <span style={{
+                    fontFamily: 'var(--font-serif)',
+                    fontSize: '2rem',
+                    fontWeight: '600',
+                    color: domain.color,
+                    lineHeight: 1
+                  }}>
                     {avgScore.toFixed(2)}
                   </span>
                   <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                    / 4.0 max
+                    / 4.0 max scale
                   </span>
                 </div>
 
@@ -150,10 +174,10 @@ export default function DomainBreakdownGrid({ responses = {}, symptoms = [] }) {
                   style={{
                     width: '100%',
                     height: '6px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                    backgroundColor: '#EAE3D8',
                     borderRadius: 'var(--radius-full)',
                     overflow: 'hidden',
-                    marginBottom: '0.6rem',
+                    marginBottom: '0.65rem',
                   }}
                 >
                   <div
@@ -167,8 +191,8 @@ export default function DomainBreakdownGrid({ responses = {}, symptoms = [] }) {
                   />
                 </div>
 
-                <div style={{ fontSize: '0.76rem', color: 'var(--text-muted)', marginBottom: '1.25rem' }}>
-                  {diffText} (SWAN Cohort: {domain.swanBenchmark.toFixed(2)})
+                <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '1.35rem' }}>
+                  {diffText} (SWAN Cohort Avg: {domain.swanBenchmark.toFixed(2)})
                 </div>
               </div>
 
@@ -182,14 +206,15 @@ export default function DomainBreakdownGrid({ responses = {}, symptoms = [] }) {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: '0.5rem 0.75rem',
-                    fontSize: '0.8rem',
-                    background: 'rgba(255, 255, 255, 0.02)',
+                    padding: '0.55rem 0.85rem',
+                    fontSize: '0.82rem',
+                    background: 'var(--bg-subtle)',
                     border: '1px solid var(--border-subtle)',
                     borderRadius: 'var(--radius-sm)',
+                    color: 'var(--text-primary)'
                   }}
                 >
-                  <span>{isExpanded ? 'Hide Symptoms' : 'Drilldown Symptoms'}</span>
+                  <span>{isExpanded ? 'Hide Symptom Items' : 'View Symptom Ratings'}</span>
                   <span>{isExpanded ? '▲' : '▼'} ({domainSymptoms.length})</span>
                 </button>
 
@@ -197,47 +222,43 @@ export default function DomainBreakdownGrid({ responses = {}, symptoms = [] }) {
                 {isExpanded && (
                   <div
                     style={{
-                      marginTop: '0.75rem',
+                      marginTop: '0.85rem',
                       display: 'flex',
                       flexDirection: 'column',
-                      gap: '0.6rem',
-                      paddingTop: '0.5rem',
+                      gap: '0.55rem',
+                      paddingTop: '0.75rem',
                       borderTop: '1px solid var(--border-subtle)',
                     }}
                   >
-                    {domainSymptoms.map((symptom) => {
-                      const val = responses[symptom.id];
+                    {domainSymptoms.map((s) => {
+                      const val = responses[s.id];
                       const hasVal = val !== undefined && val !== null;
-                      const scoreNum = hasVal ? Number(val) : 0;
-
                       return (
                         <div
-                          key={symptom.id}
+                          key={s.id}
                           style={{
+                            fontSize: '0.82rem',
                             padding: '0.55rem 0.75rem',
+                            background: 'var(--bg-subtle)',
                             borderRadius: 'var(--radius-sm)',
-                            background: 'rgba(0, 0, 0, 0.2)',
-                            border: '1px solid rgba(255, 255, 255, 0.05)',
+                            border: '1px solid var(--border-subtle)',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            gap: '0.5rem',
                           }}
                         >
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.2rem' }}>
-                            <span style={{ fontSize: '0.82rem', fontWeight: '600', color: 'var(--text-primary)' }}>
-                              {symptom.name || symptom.id}
-                            </span>
-                            <span
-                              style={{
-                                fontSize: '0.74rem',
-                                fontWeight: '700',
-                                color: scoreNum >= 3 ? '#f43f5e' : scoreNum >= 2 ? '#f59e0b' : 'var(--text-secondary)',
-                              }}
-                            >
-                              {scoreNum} / 4
-                            </span>
-                          </div>
-
-                          <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-                            {hasVal ? LIKERT_LABELS[scoreNum] : 'Not answered (Imputed)'}
-                          </div>
+                          <span style={{ color: 'var(--text-primary)', fontWeight: '500' }}>
+                            {s.name}
+                          </span>
+                          <span style={{
+                            color: hasVal ? domain.color : 'var(--text-muted)',
+                            fontWeight: '600',
+                            fontSize: '0.76rem',
+                            whiteSpace: 'nowrap',
+                          }}>
+                            {hasVal ? LIKERT_LABELS[val] || `Score ${val}` : 'Not answered'}
+                          </span>
                         </div>
                       );
                     })}

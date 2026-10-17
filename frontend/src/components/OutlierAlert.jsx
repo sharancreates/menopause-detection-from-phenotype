@@ -6,39 +6,40 @@ export default function OutlierAlert({ isOutlier = false, imputedFeatures = [] }
       <div
         className="glass-panel"
         style={{
-          padding: '1.25rem 1.5rem',
+          padding: '1.25rem 1.75rem',
           borderRadius: 'var(--radius-lg)',
           display: 'flex',
           alignItems: 'center',
-          gap: '1rem',
-          background: 'rgba(16, 185, 129, 0.08)',
-          border: '1px solid rgba(16, 185, 129, 0.25)',
-          marginBottom: '1.5rem',
+          gap: '1.1rem',
+          background: '#FFFFFF',
+          border: '1px solid var(--border-subtle)',
+          marginBottom: '2rem',
+          boxShadow: 'var(--shadow-card)'
         }}
       >
         <div
           style={{
-            width: '42px',
-            height: '42px',
+            width: '40px',
+            height: '40px',
             borderRadius: '50%',
-            background: 'rgba(16, 185, 129, 0.15)',
-            color: '#10b981',
-            fontSize: '1.4rem',
+            background: 'var(--color-mint-light)',
+            color: 'var(--color-primary)',
+            fontSize: '1.25rem',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             flexShrink: 0,
-            border: '1px solid rgba(16, 185, 129, 0.3)',
+            border: '1px solid rgba(91, 174, 134, 0.3)',
           }}
         >
           ✓
         </div>
         <div>
-          <h4 style={{ fontSize: '0.98rem', color: '#10b981', marginBottom: '0.2rem' }}>
-            Standard Cohort Symmetry
+          <h4 style={{ fontSize: '0.92rem', color: 'var(--color-primary)', marginBottom: '0.15rem' }}>
+            Standard Cohort Symmetry Verified
           </h4>
-          <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: '1.45' }}>
-            Your symptom distribution across vasomotor, psychological, somatic, and sleep domains closely matches the established transition patterns observed in the SWAN cohort study.
+          <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: '1.5', margin: 0 }}>
+            Your symptom distribution across vasomotor, psychological, somatic, and sleep domains conforms closely to established trajectory patterns observed in the SWAN longitudinal cohort.
           </p>
         </div>
       </div>
@@ -51,73 +52,67 @@ export default function OutlierAlert({ isOutlier = false, imputedFeatures = [] }
       style={{
         padding: '1.5rem 1.75rem',
         borderRadius: 'var(--radius-lg)',
-        background: 'rgba(244, 63, 94, 0.1)',
-        border: '1px solid rgba(244, 63, 94, 0.35)',
-        boxShadow: '0 4px 20px rgba(244, 63, 94, 0.15)',
-        marginBottom: '1.5rem',
+        background: 'var(--color-accent-light)',
+        border: '1px solid rgba(200, 109, 81, 0.35)',
+        boxShadow: '0 4px 20px rgba(200, 109, 81, 0.08)',
+        marginBottom: '2rem',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1.1rem' }}>
         <div
           style={{
-            width: '46px',
-            height: '46px',
+            width: '42px',
+            height: '42px',
             borderRadius: '50%',
-            background: 'rgba(244, 63, 94, 0.2)',
-            color: '#fda4af',
-            fontSize: '1.4rem',
+            background: 'rgba(200, 109, 81, 0.2)',
+            color: 'var(--color-accent)',
+            fontSize: '1.3rem',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             flexShrink: 0,
-            border: '1px solid rgba(244, 63, 94, 0.4)',
+            border: '1px solid rgba(200, 109, 81, 0.4)',
           }}
         >
           ⚠️
         </div>
 
         <div style={{ flex: 1 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap', marginBottom: '0.4rem' }}>
-            <h4 style={{ fontSize: '1.1rem', color: '#fda4af', fontWeight: '700' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '0.35rem' }}>
+            <h4 style={{ fontSize: '1.05rem', color: 'var(--color-accent)', fontWeight: '700', margin: 0 }}>
               Atypical Multi-Domain Profile Detected
             </h4>
             <span
               style={{
                 fontSize: '0.72rem',
-                fontWeight: '700',
-                padding: '0.15rem 0.55rem',
+                fontWeight: '600',
+                padding: '0.18rem 0.6rem',
                 borderRadius: 'var(--radius-full)',
-                background: 'rgba(244, 63, 94, 0.25)',
-                color: '#fecdd3',
-                border: '1px solid rgba(244, 63, 94, 0.4)',
+                background: '#FFFFFF',
+                color: 'var(--color-accent)',
+                border: '1px solid rgba(200, 109, 81, 0.3)',
               }}
             >
               Isolation Forest Consensus
             </span>
           </div>
 
-          <p style={{ fontSize: '0.88rem', color: '#fed7aa', marginBottom: '0.75rem', lineHeight: '1.5' }}>
-            The statistical anomaly detector flagged an asymmetric symptom combination across domains. For example, experiencing intense thermoregulatory hot flashes alongside completely absent somatic or sleep disruption occurs in fewer than 5% of the SWAN longitudinal study population.
+          <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', marginBottom: '0.75rem', lineHeight: '1.55' }}>
+            The statistical anomaly detector identified an asymmetric symptom pattern across domains. Experiencing severe thermoregulatory sensations with near-absent physical or rest disruption occurs in fewer than 5% of the SWAN longitudinal study population.
           </p>
 
           <div
             style={{
-              padding: '0.75rem 1rem',
-              borderRadius: 'var(--radius-sm)',
-              background: 'rgba(0, 0, 0, 0.25)',
-              border: '1px solid rgba(244, 63, 94, 0.2)',
+              padding: '0.85rem 1.1rem',
+              borderRadius: 'var(--radius-md)',
+              background: '#FFFFFF',
+              border: '1px solid rgba(200, 109, 81, 0.25)',
               fontSize: '0.82rem',
-              color: 'var(--text-secondary)',
+              color: 'var(--text-primary)',
             }}
           >
-            <strong style={{ color: '#ffffff' }}>Clinical Context:</strong> An atypical pattern reflects natural individual variation in neuroendocrine receptors rather than an alarming condition. We recommend highlighting this symptom asymmetry when consulting your healthcare provider to design tailored, multi-modal care.
+            <strong>Clinical Consideration:</strong> Atypical configurations may reflect isolated endocrine, thyroid, or medication-related cross-talk. Prioritize discussing these specific domain differentials during your clinician consultation.
           </div>
-
-          {imputedFeatures && imputedFeatures.length > 0 && (
-            <div style={{ marginTop: '0.6rem', fontSize: '0.76rem', color: 'var(--text-muted)' }}>
-              Note: {imputedFeatures.length} missing symptom(s) ({imputedFeatures.join(', ')}) were imputed with median cohort values.
-            </div>
-          )}
         </div>
       </div>
     </div>

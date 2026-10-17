@@ -11,15 +11,15 @@ const STEPS = [
 
 export default function ProgressBar({ currentStep, onStepClick, answeredCount, totalItems, completionPercentage }) {
   return (
-    <div className="progress-container" style={{ margin: '1.25rem 0 2rem' }}>
-      {/* Top step tab navigation */}
+    <div className="progress-container" style={{ margin: '1.25rem 0 2.25rem' }}>
+      {/* Top Step Tab Navigation */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        gap: '0.5rem',
+        gap: '0.6rem',
         overflowX: 'auto',
-        paddingBottom: '0.75rem',
+        paddingBottom: '0.85rem',
         scrollbarWidth: 'none'
       }}>
         {STEPS.map((step) => {
@@ -33,26 +33,27 @@ export default function ProgressBar({ currentStep, onStepClick, answeredCount, t
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.4rem',
-                padding: '0.45rem 0.85rem',
+                gap: '0.45rem',
+                padding: '0.5rem 0.95rem',
                 borderRadius: 'var(--radius-full)',
                 border: '1px solid',
                 borderColor: isActive
                   ? 'var(--color-primary)'
                   : isPassed
-                  ? 'rgba(168, 85, 247, 0.35)'
+                  ? 'rgba(52, 78, 65, 0.3)'
                   : 'var(--border-subtle)',
                 background: isActive
-                  ? 'rgba(168, 85, 247, 0.18)'
+                  ? 'var(--color-primary)'
                   : isPassed
-                  ? 'rgba(255, 255, 255, 0.04)'
-                  : 'transparent',
-                color: isActive ? '#fff' : isPassed ? 'var(--text-secondary)' : 'var(--text-muted)',
-                fontSize: '0.82rem',
+                  ? 'var(--bg-subtle)'
+                  : '#FFFFFF',
+                color: isActive ? '#FFFFFF' : isPassed ? 'var(--text-primary)' : 'var(--text-muted)',
+                fontSize: '0.84rem',
                 fontWeight: isActive ? '600' : '500',
                 cursor: 'pointer',
                 whiteSpace: 'nowrap',
-                transition: 'all var(--transition-fast)'
+                transition: 'all var(--transition-fast)',
+                boxShadow: isActive ? '0 2px 8px rgba(52, 78, 65, 0.18)' : 'var(--shadow-sm)'
               }}
             >
               <span style={{
@@ -60,11 +61,11 @@ export default function ProgressBar({ currentStep, onStepClick, answeredCount, t
                 height: '18px',
                 borderRadius: '50%',
                 background: isActive
-                  ? 'var(--color-primary)'
+                  ? 'rgba(255, 255, 255, 0.25)'
                   : isPassed
-                  ? 'rgba(168, 85, 247, 0.4)'
-                  : 'rgba(255, 255, 255, 0.1)',
-                color: '#fff',
+                  ? 'var(--color-primary)'
+                  : 'var(--bg-subtle)',
+                color: isActive || isPassed ? '#FFFFFF' : 'var(--text-muted)',
                 fontSize: '0.68rem',
                 display: 'flex',
                 alignItems: 'center',
@@ -73,45 +74,50 @@ export default function ProgressBar({ currentStep, onStepClick, answeredCount, t
               }}>
                 {isPassed ? '✓' : step.id}
               </span>
-              {step.label}
+              <span>{step.label}</span>
               {step.count && (
-                <span style={{ fontSize: '0.7rem', opacity: 0.65 }}>({step.count})</span>
+                <span style={{
+                  fontSize: '0.72rem',
+                  opacity: isActive ? 0.85 : 0.65,
+                  fontWeight: '400'
+                }}>
+                  ({step.count})
+                </span>
               )}
             </button>
           );
         })}
       </div>
 
-      {/* Progress status line */}
+      {/* Progress Status Line */}
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        fontSize: '0.78rem',
+        fontSize: '0.82rem',
         color: 'var(--text-secondary)',
-        marginBottom: '0.4rem'
+        marginBottom: '0.5rem'
       }}>
-        <span>Assessment Progress</span>
+        <span style={{ fontWeight: '500' }}>Clinical Assessment Progress</span>
         <span style={{ fontWeight: '600', color: 'var(--text-primary)' }}>
-          {answeredCount} of {totalItems} items answered ({completionPercentage}%)
+          {answeredCount} of {totalItems} items completed ({completionPercentage}%)
         </span>
       </div>
 
-      {/* Visual progress track */}
+      {/* Visual Progress Track */}
       <div style={{
         width: '100%',
         height: '6px',
-        backgroundColor: 'rgba(255, 255, 255, 0.08)',
+        backgroundColor: '#EAE3D8',
         borderRadius: 'var(--radius-full)',
         overflow: 'hidden'
       }}>
         <div style={{
           width: `${completionPercentage}%`,
           height: '100%',
-          background: 'linear-gradient(90deg, #a855f7, #06b6d4)',
+          background: 'linear-gradient(90deg, #344E41, #5BAE86)',
           borderRadius: 'var(--radius-full)',
-          transition: 'width 300ms ease-in-out',
-          boxShadow: '0 0 12px rgba(168, 85, 247, 0.6)'
+          transition: 'width 300ms ease-in-out'
         }} />
       </div>
     </div>

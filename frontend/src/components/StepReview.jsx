@@ -12,43 +12,52 @@ export default function StepReview({ responses, symptoms, onGoToStep, onPrev, on
   const unansweredCount = 18 - answeredTotal;
 
   return (
-    <div className="animate-fade-in" style={{ maxWidth: '840px', margin: '0 auto' }}>
+    <div className="animate-fade-in" style={{ maxWidth: '900px', margin: '0 auto' }}>
       {/* Review Header Card */}
       <div className="glass-panel" style={{
-        padding: '2rem 2.5rem',
-        marginBottom: '1.5rem',
-        textAlign: 'center'
+        padding: '2.5rem 2.25rem',
+        marginBottom: '2rem',
+        textAlign: 'center',
+        background: '#FFFFFF',
+        border: '1px solid var(--border-subtle)',
+        borderRadius: 'var(--radius-xl)'
       }}>
         <div style={{
           width: '52px',
           height: '52px',
           borderRadius: '50%',
-          background: 'rgba(168, 85, 247, 0.15)',
+          background: 'var(--color-primary-light)',
           color: 'var(--color-primary)',
-          fontSize: '1.6rem',
+          fontSize: '1.5rem',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          margin: '0 auto 1rem',
-          border: '1px solid rgba(168, 85, 247, 0.3)'
+          margin: '0 auto 1.25rem',
+          border: '1px solid rgba(52, 78, 65, 0.2)'
         }}>
           📋
         </div>
 
-        <h2 style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>
-          Assessment Summary & Review
+        <h2 style={{
+          fontFamily: 'var(--font-serif)',
+          fontSize: '2.2rem',
+          marginBottom: '0.65rem',
+          color: 'var(--text-primary)'
+        }}>
+          Review Your <em>Symptom Report</em>
         </h2>
-        <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', maxWidth: '580px', margin: '0 auto' }}>
-          Please verify your symptom frequencies before running the machine learning clustering model.
+        <p style={{ fontSize: '0.96rem', color: 'var(--text-secondary)', maxWidth: '620px', margin: '0 auto', lineHeight: '1.6' }}>
+          Please review your 18 symptom responses across the 4 clinical domains before generating your
+          unsupervised Gaussian Mixture phenotype trajectory and doctor consultation brief.
         </p>
       </div>
 
       {/* Domain Breakdown Grid */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-        gap: '1rem',
-        marginBottom: '1.5rem'
+        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+        gap: '1.25rem',
+        marginBottom: '2rem'
       }}>
         {DOMAIN_INFO.map((d, idx) => {
           const domainSymptoms = symptoms.filter((s) => s.domain === d.key);
@@ -62,28 +71,42 @@ export default function StepReview({ responses, symptoms, onGoToStep, onPrev, on
               key={d.key}
               className="glass-panel"
               style={{
-                padding: '1.25rem',
-                borderLeft: `3px solid ${d.color}`,
+                padding: '1.5rem',
+                borderLeft: `4px solid ${d.color}`,
+                background: '#FFFFFF',
                 cursor: 'pointer',
-                transition: 'all var(--transition-fast)'
+                transition: 'all var(--transition-fast)',
+                boxShadow: 'var(--shadow-card)'
               }}
               onClick={() => onGoToStep(idx + 1)}
               title="Click to review or edit this domain"
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                <span className={`domain-badge ${d.key}`} style={{ fontSize: '0.68rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem' }}>
+                <span className={`domain-badge ${d.key}`} style={{ fontSize: '0.7rem' }}>
                   {d.name.split(' ')[0]}
                 </span>
-                <span style={{ fontSize: '0.75rem', color: isComplete ? '#10b981' : '#f59e0b', fontWeight: '600' }}>
-                  {isComplete ? 'Complete' : 'Incomplete'}
+                <span style={{
+                  fontSize: '0.74rem',
+                  color: isComplete ? 'var(--color-mint)' : '#B58342',
+                  fontWeight: '600',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px'
+                }}>
+                  {isComplete ? 'Complete ✓' : 'Incomplete'}
                 </span>
               </div>
 
-              <div style={{ fontSize: '1.3rem', fontWeight: '800', marginBottom: '0.2rem' }}>
+              <div style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize: '1.75rem',
+                fontWeight: '600',
+                marginBottom: '0.25rem',
+                color: 'var(--text-primary)'
+              }}>
                 {answeredInDomain} / {d.total}
               </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                Items Answered &rarr; Edit
+              <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                Items completed &rarr; <span style={{ textDecoration: 'underline' }}>Edit</span>
               </div>
             </div>
           );
@@ -93,22 +116,23 @@ export default function StepReview({ responses, symptoms, onGoToStep, onPrev, on
       {/* Unanswered Items Notice */}
       {unansweredCount > 0 && (
         <div style={{
-          padding: '1rem 1.25rem',
+          padding: '1.2rem 1.5rem',
           borderRadius: 'var(--radius-md)',
-          background: 'rgba(245, 158, 11, 0.1)',
-          border: '1px solid rgba(245, 158, 11, 0.25)',
-          color: '#fbbf24',
-          fontSize: '0.86rem',
-          marginBottom: '1.5rem',
+          background: 'rgba(181, 131, 66, 0.08)',
+          border: '1px solid rgba(181, 131, 66, 0.25)',
+          color: '#8A5D20',
+          fontSize: '0.88rem',
+          marginBottom: '2rem',
           display: 'flex',
           alignItems: 'flex-start',
-          gap: '0.75rem'
+          gap: '0.85rem',
+          lineHeight: '1.55'
         }}>
-          <span style={{ fontSize: '1.1rem' }}>ℹ️</span>
+          <span style={{ fontSize: '1.2rem' }}>ℹ️</span>
           <div>
-            <strong>{unansweredCount} item(s) left unanswered:</strong> Any missing symptoms will be
-            automatically imputed with the median training values from the SWAN research cohort.
-            You may still submit for pattern matching now, or click any domain above to complete them.
+            <strong>{unansweredCount} item(s) left unanswered:</strong> Any missing symptom ratings will
+            be automatically imputed using median research values from the SWAN longitudinal training cohort.
+            You can proceed to analysis now, or click any domain above to complete unanswered items.
           </div>
         </div>
       )}
@@ -116,15 +140,15 @@ export default function StepReview({ responses, symptoms, onGoToStep, onPrev, on
       {/* Submission Error Alert */}
       {submitError && (
         <div style={{
-          padding: '1rem 1.25rem',
+          padding: '1.2rem 1.5rem',
           borderRadius: 'var(--radius-md)',
-          background: 'rgba(244, 63, 94, 0.1)',
-          border: '1px solid rgba(244, 63, 94, 0.25)',
-          color: '#fda4af',
-          fontSize: '0.86rem',
-          marginBottom: '1.5rem'
+          background: 'rgba(200, 109, 81, 0.1)',
+          border: '1px solid rgba(200, 109, 81, 0.3)',
+          color: 'var(--color-accent)',
+          fontSize: '0.88rem',
+          marginBottom: '2rem'
         }}>
-          <strong>Submission Error:</strong> {submitError}
+          <strong>Analysis Service Error:</strong> {submitError}
         </div>
       )}
 
@@ -133,7 +157,7 @@ export default function StepReview({ responses, symptoms, onGoToStep, onPrev, on
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingTop: '1.5rem',
+        paddingTop: '1.75rem',
         borderTop: '1px solid var(--border-subtle)'
       }}>
         <button onClick={onPrev} className="btn-secondary">
@@ -144,15 +168,15 @@ export default function StepReview({ responses, symptoms, onGoToStep, onPrev, on
           onClick={onSubmit}
           disabled={isSubmitting}
           className="btn-primary"
-          style={{ padding: '0.9rem 2.2rem', fontSize: '1.05rem' }}
+          style={{ padding: '0.95rem 2.5rem', fontSize: '1.05rem' }}
         >
           {isSubmitting ? (
             <>
-              <span style={{ animation: 'spin 1s linear infinite' }}>⏳</span>
-              Analyzing Phenotype Patterns...
+              <span style={{ animation: 'circle-pulse 1s infinite' }}>⏳</span>
+              Inferring Latent Phenotype...
             </>
           ) : (
-            'Submit for Phenotype Analysis &rarr;'
+            'Generate Phenotype Consultation Brief &rarr;'
           )}
         </button>
       </div>

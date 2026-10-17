@@ -81,9 +81,11 @@ export default function App() {
   if (!metadata) {
     return (
       <div className="app-container" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div className="glass-panel" style={{ padding: '2.5rem', textAlign: 'center' }}>
-          <div style={{ fontSize: '2rem', marginBottom: '1rem', animation: 'spin 1.5s linear infinite' }}>⏳</div>
-          <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>Loading Clinical Protocols...</h3>
+        <div className="glass-panel" style={{ padding: '3rem 2.5rem', textAlign: 'center', background: '#FFFFFF' }}>
+          <div style={{ fontSize: '2.2rem', marginBottom: '1rem', animation: 'circle-pulse 2s infinite' }}>🌱</div>
+          <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.6rem', marginBottom: '0.4rem', color: 'var(--text-primary)' }}>
+            Loading Clinical Protocols...
+          </h3>
           <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)' }}>Preparing SWAN phenotype symptom domains</p>
         </div>
       </div>
@@ -106,22 +108,22 @@ export default function App() {
         <div
           className="glass-panel animate-fade-in"
           style={{
-            padding: '0.9rem 1.4rem',
-            marginBottom: '1.5rem',
+            padding: '1rem 1.5rem',
+            marginBottom: '1.75rem',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            background: 'rgba(56, 189, 248, 0.08)',
-            border: '1px solid rgba(56, 189, 248, 0.3)',
+            background: 'var(--color-primary-light)',
+            border: '1px solid rgba(52, 78, 65, 0.25)',
             borderRadius: 'var(--radius-md)',
             flexWrap: 'wrap',
             gap: '0.75rem',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.88rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.88rem', color: 'var(--color-primary)' }}>
             <span style={{ fontSize: '1.2rem' }}>💾</span>
             <span>
-              <strong>Draft Restored:</strong> Your previous questionnaire session was recovered ({answeredCount} items answered).
+              <strong>Session Restored:</strong> Your previous questionnaire draft was recovered ({answeredCount} items completed).
             </span>
           </div>
 
@@ -129,14 +131,14 @@ export default function App() {
             <button
               onClick={dismissDraftBanner}
               className="btn-primary"
-              style={{ padding: '0.35rem 0.85rem', fontSize: '0.8rem' }}
+              style={{ padding: '0.4rem 0.95rem', fontSize: '0.82rem' }}
             >
               Continue
             </button>
             <button
               onClick={handleReset}
               className="btn-ghost"
-              style={{ padding: '0.35rem 0.85rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}
+              style={{ padding: '0.4rem 0.95rem', fontSize: '0.82rem', color: 'var(--color-primary)' }}
             >
               Start Fresh
             </button>

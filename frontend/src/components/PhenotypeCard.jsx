@@ -2,10 +2,10 @@ import React from 'react';
 
 const PHENOTYPE_DETAILS = {
   'Phenotype A': {
-    fullName: 'Phenotype A (Lower Burden Profile)',
+    fullName: 'Phenotype A (Lower Burden Trajectory)',
     badgeLabel: 'Mild / Intermittent Profile',
-    badgeColor: '#10b981',
-    badgeBg: 'rgba(16, 185, 129, 0.15)',
+    badgeColor: 'var(--color-primary)',
+    badgeBg: 'var(--color-primary-light)',
     summary:
       'Lower overall symptom burden across all 4 clinical domains. Symptoms, when present, tend to be isolated and episodic rather than compounding.',
     characteristics: [
@@ -18,10 +18,10 @@ const PHENOTYPE_DETAILS = {
       'Focus on lifestyle optimization, stress resilience, calcium/vitamin D intake, and regular physical exercise to maintain healthy transition equilibrium.',
   },
   'Phenotype B': {
-    fullName: 'Phenotype B (Elevated Multi-Domain Profile)',
+    fullName: 'Phenotype B (Elevated Multi-Domain Trajectory)',
     badgeLabel: 'Elevated / Multi-Domain Profile',
-    badgeColor: '#c084fc',
-    badgeBg: 'rgba(168, 85, 247, 0.2)',
+    badgeColor: 'var(--color-accent)',
+    badgeBg: 'var(--color-accent-light)',
     summary:
       'Elevated multi-domain symptom burden. Features concurrent challenges spanning vasomotor neurovascular signals, psychological fluctuations, musculoskeletal aching, and disrupted nocturnal rest.',
     characteristics: [
@@ -45,92 +45,99 @@ export default function PhenotypeCard({ phenotype = 'Phenotype A', interpretatio
     <div
       className="glass-panel"
       style={{
-        padding: '2.25rem 2rem',
-        borderRadius: 'var(--radius-lg)',
+        padding: '2.5rem 2.25rem',
+        borderRadius: 'var(--radius-xl)',
         position: 'relative',
         overflow: 'hidden',
-        borderLeft: `5px solid ${details.badgeColor}`,
+        borderLeft: `6px solid ${details.badgeColor}`,
+        background: '#FFFFFF',
+        boxShadow: 'var(--shadow-card)'
       }}
     >
-      {/* Background ambient glow */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '-25%',
-          right: '-10%',
-          width: '260px',
-          height: '260px',
-          background: `radial-gradient(circle, ${details.badgeBg} 0%, transparent 70%)`,
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '1rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '1.25rem' }}>
         <span
           style={{
-            fontSize: '0.8rem',
+            fontSize: '0.76rem',
             fontWeight: '700',
-            padding: '0.3rem 0.85rem',
+            padding: '0.35rem 0.95rem',
             borderRadius: 'var(--radius-full)',
             background: details.badgeBg,
             color: details.badgeColor,
-            border: `1px solid ${details.badgeColor}44`,
+            border: `1px solid ${details.badgeColor}33`,
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em'
           }}
         >
           {details.badgeLabel}
         </span>
 
-        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-          SWAN Unsupervised GMM Clustering
+        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+          SWAN GMM Subtyping
         </span>
       </div>
 
-      <h2 style={{ fontSize: '2rem', letterSpacing: '-0.02em', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
+      <h2 style={{
+        fontFamily: 'var(--font-serif)',
+        fontSize: '2.2rem',
+        letterSpacing: '-0.02em',
+        marginBottom: '0.75rem',
+        color: 'var(--text-primary)',
+        lineHeight: '1.2'
+      }}>
         {details.fullName}
       </h2>
 
-      <p style={{ fontSize: '0.96rem', color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+      <p style={{ fontSize: '0.96rem', color: 'var(--text-secondary)', lineHeight: '1.65', marginBottom: '1.75rem' }}>
         {interpretation || details.summary}
       </p>
 
       {/* Characteristics List */}
-      <div style={{ marginBottom: '1.5rem' }}>
-        <h4 style={{ fontSize: '0.86rem', color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.65rem' }}>
-          Key Clinical Characteristics:
+      <div style={{ marginBottom: '1.75rem' }}>
+        <h4 style={{
+          fontSize: '0.78rem',
+          color: 'var(--text-primary)',
+          textTransform: 'uppercase',
+          letterSpacing: '1px',
+          marginBottom: '0.85rem'
+        }}>
+          Key Clinical Characteristics
         </h4>
-        <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: '0.45rem' }}>
-          {details.characteristics.map((item, idx) => (
+
+        <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+          {details.characteristics.map((char, idx) => (
             <li
               key={idx}
               style={{
-                fontSize: '0.86rem',
+                fontSize: '0.88rem',
                 color: 'var(--text-secondary)',
                 display: 'flex',
                 alignItems: 'flex-start',
-                gap: '0.6rem',
+                gap: '0.65rem',
+                lineHeight: '1.5',
               }}
             >
-              <span style={{ color: details.badgeColor, fontSize: '0.9rem', lineHeight: '1.3' }}>•</span>
-              <span>{item}</span>
+              <span style={{ color: details.badgeColor, fontWeight: 'bold' }}>&rarr;</span>
+              <span>{char}</span>
             </li>
           ))}
         </ul>
       </div>
 
-      {/* Guidance box */}
+      {/* Recommended Next Steps */}
       <div
         style={{
-          padding: '0.9rem 1.15rem',
+          padding: '1.1rem 1.35rem',
           borderRadius: 'var(--radius-md)',
-          background: 'rgba(255, 255, 255, 0.03)',
+          background: 'var(--bg-subtle)',
           border: '1px solid var(--border-subtle)',
-          fontSize: '0.84rem',
-          color: 'var(--text-muted)',
-          lineHeight: '1.5',
         }}
       >
-        <strong style={{ color: 'var(--text-primary)' }}>Recommended Next Steps: </strong>
-        {details.guidance}
+        <h4 style={{ fontSize: '0.76rem', color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.35rem' }}>
+          Consultation Guidance
+        </h4>
+        <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: '1.55', margin: 0 }}>
+          {details.guidance}
+        </p>
       </div>
     </div>
   );

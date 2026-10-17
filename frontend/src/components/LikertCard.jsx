@@ -18,7 +18,7 @@ export default function LikertCard({ option, isSelected, onSelect }) {
       style={{
         flex: '1 1 0',
         minWidth: '130px',
-        padding: '0.85rem 0.75rem',
+        padding: '0.95rem 0.85rem',
         borderRadius: 'var(--radius-md)',
         cursor: 'pointer',
         transition: 'all var(--transition-normal)',
@@ -27,10 +27,10 @@ export default function LikertCard({ option, isSelected, onSelect }) {
         flexDirection: 'column',
         alignItems: 'center',
         textAlign: 'center',
-        border: '1px solid',
-        borderColor: isSelected ? 'var(--border-selected)' : 'var(--border-subtle)',
-        background: isSelected ? 'var(--bg-card-selected)' : 'var(--bg-card)',
-        boxShadow: isSelected ? 'var(--shadow-selected)' : 'none',
+        border: '1.5px solid',
+        borderColor: isSelected ? 'var(--color-primary)' : 'var(--border-subtle)',
+        background: isSelected ? 'var(--color-primary-light)' : '#FFFFFF',
+        boxShadow: isSelected ? 'var(--shadow-selected)' : 'var(--shadow-sm)',
         transform: isSelected ? 'translateY(-2px)' : 'none',
       }}
     >
@@ -44,12 +44,11 @@ export default function LikertCard({ option, isSelected, onSelect }) {
         justifyContent: 'center',
         fontSize: '0.82rem',
         fontWeight: '700',
-        marginBottom: '0.45rem',
+        marginBottom: '0.5rem',
         background: isSelected
-          ? 'linear-gradient(135deg, var(--color-primary), var(--color-primary-dark))'
-          : 'rgba(255, 255, 255, 0.08)',
-        color: '#fff',
-        boxShadow: isSelected ? '0 0 10px rgba(168, 85, 247, 0.6)' : 'none',
+          ? 'var(--color-primary)'
+          : 'var(--bg-subtle)',
+        color: isSelected ? '#FFFFFF' : 'var(--text-secondary)',
         transition: 'all var(--transition-fast)'
       }}>
         {value}
@@ -57,19 +56,20 @@ export default function LikertCard({ option, isSelected, onSelect }) {
 
       {/* Label */}
       <span style={{
-        fontSize: '0.88rem',
+        fontSize: '0.9rem',
         fontWeight: isSelected ? '700' : '600',
-        color: isSelected ? '#fff' : 'var(--text-primary)',
-        marginBottom: '0.2rem',
+        color: isSelected ? 'var(--color-primary)' : 'var(--text-primary)',
+        marginBottom: '0.25rem',
+        letterSpacing: '-0.01em'
       }}>
         {label}
       </span>
 
       {/* Description / Frequency */}
       <span style={{
-        fontSize: '0.72rem',
-        color: isSelected ? 'var(--text-secondary)' : 'var(--text-muted)',
-        lineHeight: '1.25'
+        fontSize: '0.74rem',
+        color: isSelected ? 'var(--color-primary)' : 'var(--text-muted)',
+        lineHeight: '1.3'
       }}>
         {description}
       </span>
@@ -78,13 +78,12 @@ export default function LikertCard({ option, isSelected, onSelect }) {
       {isSelected && (
         <div style={{
           position: 'absolute',
-          top: '8px',
-          right: '8px',
-          width: '6px',
-          height: '6px',
+          top: '9px',
+          right: '9px',
+          width: '7px',
+          height: '7px',
           borderRadius: '50%',
           backgroundColor: 'var(--color-primary)',
-          boxShadow: '0 0 6px var(--color-primary)'
         }} />
       )}
     </div>

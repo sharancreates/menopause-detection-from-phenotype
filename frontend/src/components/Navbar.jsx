@@ -8,66 +8,91 @@ export default function Navbar({ healthStatus, onResetDraft, answeredCount }) {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      padding: '0.9rem 1.5rem',
-      margin: '1rem 0 1.5rem',
-      borderRadius: 'var(--radius-lg)'
+      padding: '1rem 1.75rem',
+      margin: '1.25rem 0 1.5rem',
+      borderRadius: 'var(--radius-lg)',
+      background: 'rgba(255, 255, 255, 0.92)',
+      backdropFilter: 'blur(12px)',
+      WebkitBackdropFilter: 'blur(12px)',
+      border: '1px solid var(--border-subtle)',
+      boxShadow: 'var(--shadow-card)'
     }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+      {/* Brand Identity */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
         <div style={{
           width: '38px',
           height: '38px',
-          borderRadius: '10px',
-          background: 'linear-gradient(135deg, #a855f7 0%, #06b6d4 100%)',
+          borderRadius: '50%',
+          background: 'var(--color-primary)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: 'var(--shadow-glow)',
-          fontSize: '1.2rem',
-          fontWeight: 'bold',
-          color: '#fff'
+          color: '#FFFFFF',
+          fontFamily: 'var(--font-serif)',
+          fontSize: '1.25rem',
+          fontWeight: '500',
+          boxShadow: '0 2px 8px rgba(52, 78, 65, 0.2)'
         }}>
-          M
+          C
         </div>
         <div>
-          <h1 style={{ fontSize: '1.25rem', letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            MenoPhenotype
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
             <span style={{
-              fontSize: '0.65rem',
+              fontFamily: 'var(--font-sans)',
+              fontSize: '0.95rem',
               fontWeight: '700',
-              padding: '0.15rem 0.5rem',
-              borderRadius: 'var(--radius-full)',
-              background: 'rgba(168, 85, 247, 0.18)',
-              color: 'var(--color-primary)',
-              border: '1px solid rgba(168, 85, 247, 0.3)'
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              color: 'var(--color-primary)'
             }}>
-              SWAN AI
+              CASCAID
             </span>
-          </h1>
-          <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-            Phenotype Pattern Matching & Self-Assessment
+            <span style={{ color: 'var(--border-card)', fontSize: '0.85rem' }}>•</span>
+            <span style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: '1.15rem',
+              fontWeight: '500',
+              color: 'var(--text-primary)',
+              letterSpacing: '-0.01em'
+            }}>
+              MenoPhenotype
+            </span>
+            <span style={{
+              fontSize: '0.68rem',
+              fontWeight: '600',
+              padding: '0.18rem 0.55rem',
+              borderRadius: 'var(--radius-full)',
+              background: 'var(--color-primary-light)',
+              color: 'var(--color-primary)',
+              border: '1px solid rgba(52, 78, 65, 0.2)',
+              letterSpacing: '0.04em'
+            }}>
+              SWAN COHORT
+            </span>
+          </div>
+          <p style={{ fontSize: '0.76rem', color: 'var(--text-muted)', marginTop: '1px' }}>
+            Unsupervised Subtyping & Clinical Consultation Brief
           </p>
         </div>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        {/* Backend Health Badge */}
+      {/* Right Controls */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1.1rem' }}>
+        {/* Backend Health Badge with Cascaid status pulse */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '0.45rem',
           fontSize: '0.78rem',
-          color: isHealthy ? '#10b981' : '#f59e0b',
-          background: isHealthy ? 'rgba(16, 185, 129, 0.1)' : 'rgba(245, 158, 11, 0.1)',
-          padding: '0.35rem 0.75rem',
+          fontWeight: '500',
+          color: isHealthy ? 'var(--color-primary)' : '#B58342',
+          background: isHealthy ? 'var(--color-primary-light)' : 'rgba(181, 131, 66, 0.1)',
+          padding: '0.38rem 0.85rem',
           borderRadius: 'var(--radius-full)',
-          border: `1px solid ${isHealthy ? 'rgba(16, 185, 129, 0.25)' : 'rgba(245, 158, 11, 0.25)'}`
+          border: `1px solid ${isHealthy ? 'rgba(52, 78, 65, 0.2)' : 'rgba(181, 131, 66, 0.3)'}`
         }}>
-          <span style={{
-            width: '7px',
-            height: '7px',
-            borderRadius: '50%',
-            backgroundColor: isHealthy ? '#10b981' : '#f59e0b',
-            boxShadow: isHealthy ? '0 0 8px #10b981' : 'none'
+          <span className="status--circle" style={{
+            backgroundColor: isHealthy ? 'var(--color-mint)' : '#B58342',
+            marginRight: '8px'
           }} />
           {isHealthy ? 'Model Engine Ready' : 'Connecting Engine...'}
         </div>
@@ -76,7 +101,7 @@ export default function Navbar({ healthStatus, onResetDraft, answeredCount }) {
           <button
             onClick={onResetDraft}
             className="btn-ghost"
-            title="Clear all answers and restart"
+            title="Clear all responses and restart assessment"
             style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}
           >
             Clear Draft

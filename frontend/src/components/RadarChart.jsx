@@ -52,20 +52,28 @@ export default function RadarChart({ domainScores = {}, benchmarks = DEFAULT_BEN
     <div
       className="glass-panel"
       style={{
-        padding: '1.75rem',
-        borderRadius: 'var(--radius-lg)',
+        padding: '2rem 1.75rem',
+        borderRadius: 'var(--radius-xl)',
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        background: '#FFFFFF',
+        boxShadow: 'var(--shadow-card)',
+        border: '1px solid var(--border-subtle)'
       }}
     >
-      <div style={{ textAlign: 'center', marginBottom: '0.75rem', width: '100%' }}>
-        <h3 style={{ fontSize: '1.25rem', marginBottom: '0.25rem' }}>
+      <div style={{ textAlign: 'center', marginBottom: '0.85rem', width: '100%' }}>
+        <h3 style={{
+          fontFamily: 'var(--font-serif)',
+          fontSize: '1.45rem',
+          marginBottom: '0.2rem',
+          color: 'var(--text-primary)'
+        }}>
           4-Domain Symptom Radar
         </h3>
-        <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
-          Comparative burden profile vs. SWAN Cohort Median
+        <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+          Individual phenotype mapping vs. SWAN Cohort Median
         </p>
       </div>
 
@@ -77,16 +85,16 @@ export default function RadarChart({ domainScores = {}, benchmarks = DEFAULT_BEN
           aria-label="Radar chart displaying vasomotor, psychological, somatic, and sleep domain symptom scores compared against SWAN population averages"
         >
           <defs>
-            {/* User polygon glowing gradient */}
+            {/* User polygon Cascaid Forest Sage gradient */}
             <radialGradient id="userPolygonGradient" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#c084fc" stopOpacity="0.55" />
-              <stop offset="100%" stopColor="#a855f7" stopOpacity="0.25" />
+              <stop offset="0%" stopColor="#344E41" stopOpacity="0.45" />
+              <stop offset="100%" stopColor="#273A31" stopOpacity="0.22" />
             </radialGradient>
 
-            {/* Benchmark polygon gradient */}
+            {/* Benchmark polygon Cascaid Terracotta gradient */}
             <radialGradient id="benchmarkGradient" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.2" />
-              <stop offset="100%" stopColor="#0284c7" stopOpacity="0.05" />
+              <stop offset="0%" stopColor="#C86D51" stopOpacity="0.16" />
+              <stop offset="100%" stopColor="#C86D51" stopOpacity="0.04" />
             </radialGradient>
           </defs>
 
@@ -100,7 +108,7 @@ export default function RadarChart({ domainScores = {}, benchmarks = DEFAULT_BEN
                 cy={cy}
                 r={r}
                 fill="none"
-                stroke="rgba(255, 255, 255, 0.08)"
+                stroke="#EAE3D8"
                 strokeDasharray={idx === levels.length - 1 ? 'none' : '2,3'}
                 strokeWidth="1"
               />
@@ -117,7 +125,7 @@ export default function RadarChart({ domainScores = {}, benchmarks = DEFAULT_BEN
                 y1={cy}
                 x2={x}
                 y2={y}
-                stroke="rgba(255, 255, 255, 0.12)"
+                stroke="#EAE3D8"
                 strokeWidth="1"
               />
             );
@@ -129,7 +137,7 @@ export default function RadarChart({ domainScores = {}, benchmarks = DEFAULT_BEN
               key={idx}
               x={cx + 4}
               y={cy - lvl * maxRadius + 3}
-              fill="rgba(255, 255, 255, 0.35)"
+              fill="#8C867E"
               fontSize="8"
               fontWeight="600"
             >
@@ -141,8 +149,8 @@ export default function RadarChart({ domainScores = {}, benchmarks = DEFAULT_BEN
           <polygon
             points={benchmarkPoints}
             fill="url(#benchmarkGradient)"
-            stroke="#38bdf8"
-            strokeWidth="1.8"
+            stroke="#C86D51"
+            strokeWidth="1.6"
             strokeDasharray="4 4"
             opacity="0.85"
           />
@@ -151,10 +159,9 @@ export default function RadarChart({ domainScores = {}, benchmarks = DEFAULT_BEN
           <polygon
             points={userPoints}
             fill="url(#userPolygonGradient)"
-            stroke="#c084fc"
-            strokeWidth="2.5"
+            stroke="#344E41"
+            strokeWidth="2.4"
             style={{
-              filter: 'drop-shadow(0 0 10px rgba(168, 85, 247, 0.5))',
               transition: 'all 400ms ease-out',
             }}
           />
@@ -169,7 +176,7 @@ export default function RadarChart({ domainScores = {}, benchmarks = DEFAULT_BEN
                 cx={x}
                 cy={y}
                 r="3"
-                fill="#38bdf8"
+                fill="#C86D51"
                 opacity="0.75"
               />
             );
@@ -191,12 +198,11 @@ export default function RadarChart({ domainScores = {}, benchmarks = DEFAULT_BEN
                 <circle
                   cx={x}
                   cy={y}
-                  r={isHovered ? '7' : '5'}
-                  fill="#ffffff"
-                  stroke="#a855f7"
-                  strokeWidth="2.5"
+                  r={isHovered ? '6.5' : '4.5'}
+                  fill="#FFFFFF"
+                  stroke="#344E41"
+                  strokeWidth="2.2"
                   style={{
-                    filter: isHovered ? 'drop-shadow(0 0 8px #a855f7)' : 'none',
                     transition: 'r 200ms ease',
                   }}
                 />
@@ -224,7 +230,8 @@ export default function RadarChart({ domainScores = {}, benchmarks = DEFAULT_BEN
                   y={ly - 2}
                   textAnchor="middle"
                   dominantBaseline="middle"
-                  fill={isHovered ? '#ffffff' : 'var(--text-secondary)'}
+                  fill={isHovered ? 'var(--color-primary)' : 'var(--text-primary)'}
+                  fontFamily="var(--font-sans)"
                   fontSize="10"
                   fontWeight={isHovered ? '700' : '600'}
                   style={{ transition: 'fill 200ms ease' }}
@@ -255,11 +262,11 @@ export default function RadarChart({ domainScores = {}, benchmarks = DEFAULT_BEN
               bottom: '10px',
               left: '50%',
               transform: 'translateX(-50%)',
-              background: 'rgba(12, 10, 29, 0.95)',
-              border: '1px solid var(--color-primary)',
-              boxShadow: 'var(--shadow-glow)',
-              padding: '0.45rem 0.85rem',
-              borderRadius: 'var(--radius-sm)',
+              background: '#FFFFFF',
+              border: '1px solid var(--border-card)',
+              boxShadow: 'var(--shadow-card)',
+              padding: '0.45rem 0.95rem',
+              borderRadius: 'var(--radius-full)',
               fontSize: '0.78rem',
               whiteSpace: 'nowrap',
               pointerEvents: 'none',
@@ -270,11 +277,11 @@ export default function RadarChart({ domainScores = {}, benchmarks = DEFAULT_BEN
             <span style={{ fontWeight: '700', color: 'var(--text-primary)' }}>
               {DOMAIN_CONFIG.find((d) => d.key === hoveredDomain)?.label}:
             </span>{' '}
-            <span style={{ color: '#c084fc', fontWeight: 'bold' }}>
+            <span style={{ color: 'var(--color-primary)', fontWeight: 'bold' }}>
               {(domainScores[hoveredDomain] ?? 0).toFixed(2)}
             </span>{' '}
             <span style={{ color: 'var(--text-muted)' }}>
-              (SWAN Avg: {(benchmarks[hoveredDomain] ?? DEFAULT_BENCHMARKS[hoveredDomain]).toFixed(2)})
+              (SWAN Cohort Avg: {(benchmarks[hoveredDomain] ?? DEFAULT_BENCHMARKS[hoveredDomain]).toFixed(2)})
             </span>
           </div>
         )}
@@ -286,31 +293,31 @@ export default function RadarChart({ domainScores = {}, benchmarks = DEFAULT_BEN
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '1.25rem',
-          marginTop: '0.75rem',
+          gap: '1.5rem',
+          marginTop: '0.85rem',
           fontSize: '0.78rem',
           flexWrap: 'wrap',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <span
             style={{
               width: '12px',
               height: '12px',
               borderRadius: '3px',
-              background: 'rgba(168, 85, 247, 0.65)',
-              border: '1.5px solid #c084fc',
+              background: 'rgba(52, 78, 65, 0.45)',
+              border: '1.5px solid #344E41',
             }}
           />
           <span style={{ color: 'var(--text-primary)', fontWeight: '500' }}>Your Profile</span>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <span
             style={{
               width: '14px',
               height: '0',
-              borderTop: '2px dashed #38bdf8',
+              borderTop: '2px dashed #C86D51',
             }}
           />
           <span style={{ color: 'var(--text-secondary)' }}>SWAN Cohort Median</span>

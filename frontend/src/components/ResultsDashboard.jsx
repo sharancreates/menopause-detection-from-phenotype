@@ -57,19 +57,21 @@ export default function ResultsDashboard({
   });
 
   return (
-    <div className="animate-fade-in results-dashboard-root" style={{ maxWidth: '1000px', margin: '0 auto' }}>
+    <div className="animate-fade-in results-dashboard-root" style={{ maxWidth: '1020px', margin: '0 auto' }}>
       {/* Print-only Institutional Header */}
-      <div className="print-header print-only" style={{ display: 'none', marginBottom: '1.5rem', borderBottom: '2px solid #333', paddingBottom: '1rem' }}>
+      <div className="print-header print-only" style={{ display: 'none', marginBottom: '1.5rem', borderBottom: '2px solid #273A31', paddingBottom: '1rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
-            <h1 style={{ fontSize: '1.8rem', color: '#111', margin: 0 }}>MenoPhenotype Clinical Consultation Brief</h1>
-            <p style={{ fontSize: '0.9rem', color: '#555', margin: '0.2rem 0 0' }}>
+            <h1 style={{ fontSize: '1.8rem', color: '#1A1A1A', margin: 0, fontFamily: 'var(--font-serif)' }}>
+              Cascaid MenoPhenotype Clinical Consultation Brief
+            </h1>
+            <p style={{ fontSize: '0.9rem', color: '#505149', margin: '0.25rem 0 0' }}>
               Study of Women's Health Across the Nation (SWAN) Phenotype Analysis
             </p>
           </div>
-          <div style={{ textAlign: 'right', fontSize: '0.85rem', color: '#666' }}>
+          <div style={{ textAlign: 'right', fontSize: '0.85rem', color: '#605C56' }}>
             <div><strong>Date:</strong> {currentDate}</div>
-            <div><strong>Cohort Baseline:</strong> SWAN Longitudinal Study</div>
+            <div><strong>Cohort Baseline:</strong> SWAN Longitudinal Study (ICPSR 32961)</div>
           </div>
         </div>
       </div>
@@ -85,40 +87,38 @@ export default function ResultsDashboard({
       <div
         className="glass-panel no-print"
         style={{
-          padding: '1.5rem 2rem',
-          marginBottom: '1.5rem',
+          padding: '1.75rem 2.25rem',
+          marginBottom: '2rem',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           flexWrap: 'wrap',
           gap: '1rem',
+          background: '#FFFFFF',
+          borderRadius: 'var(--radius-xl)'
         }}
       >
         <div>
-          <span
-            style={{
-              fontSize: '0.72rem',
-              fontWeight: '700',
-              textTransform: 'uppercase',
-              letterSpacing: '0.08em',
-              color: 'var(--color-primary)',
-              display: 'block',
-              marginBottom: '0.2rem',
-            }}
-          >
-            Clinical Pattern Discovery
-          </span>
-          <h2 style={{ fontSize: '1.75rem', letterSpacing: '-0.02em', margin: 0 }}>
-            Personalized Phenotype Analysis
+          <div className="status" style={{ marginBottom: '0.65rem' }}>
+            <span className="status--circle" />
+            <span>PHENOTYPE PROFILE GENERATED</span>
+          </div>
+          <h2 style={{
+            fontFamily: 'var(--font-serif)',
+            fontSize: '2rem',
+            margin: 0,
+            color: 'var(--text-primary)'
+          }}>
+            Your Clinical <em>Phenotype Playbook</em>
           </h2>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-          <button onClick={onEditAnswers} className="btn-secondary" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}>
-            ✏️ Edit Answers
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', flexWrap: 'wrap' }}>
+          <button onClick={onEditAnswers} className="btn-secondary" style={{ padding: '0.6rem 1.25rem', fontSize: '0.88rem' }}>
+            ✏️ Edit Responses
           </button>
-          <button onClick={onReset} className="btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}>
-            🔄 Start Fresh
+          <button onClick={onReset} className="btn-primary" style={{ padding: '0.6rem 1.25rem', fontSize: '0.88rem' }}>
+            🔄 Start New Assessment
           </button>
         </div>
       </div>
@@ -130,16 +130,16 @@ export default function ResultsDashboard({
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '1.5rem',
-          marginBottom: '2rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+          gap: '1.75rem',
+          marginBottom: '2.5rem',
         }}
       >
         {/* Left Column: Phenotype Hero Card */}
         <PhenotypeCard phenotype={phenotype} interpretation={interpretation} />
 
         {/* Right Column: Confidence Gauge + Radar Chart */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
           <ConfidenceGauge confidence={confidence} phenotype={phenotype} />
           <RadarChart domainScores={domainScores} />
         </div>

@@ -1,45 +1,58 @@
 :root {
-  --bg-deep: #0b0a16;
-  --bg-surface: #131127;
-  --bg-card: rgba(24, 21, 46, 0.72);
-  --bg-card-hover: rgba(36, 31, 68, 0.85);
-  --bg-card-selected: rgba(139, 92, 246, 0.14);
+  /* Cascaid Health Editorial Color Palette */
+  --bg-page: #FAF7F2;
+  --bg-surface: #FFFFFF;
+  --bg-subtle: #F4EFEA;
+  --bg-hover: #EFE9E2;
+  --bg-card-selected: #F2ECE4;
 
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-focus: rgba(168, 85, 247, 0.6);
-  --border-selected: #a855f7;
+  --border-subtle: #E8E2D9;
+  --border-card: #E2DAD0;
+  --border-focus: #344E41;
+  --border-selected: #344E41;
 
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --text-accent: #c084fc;
+  --text-primary: #1A1A1A;
+  --text-secondary: #4A4641;
+  --text-muted: #7E7870;
+  --text-accent: #344E41;
 
-  --color-primary: #a855f7;
-  --color-primary-dark: #7c3aed;
-  --color-cyan: #06b6d4;
-  --color-rose: #f43f5e;
-  --color-emerald: #10b981;
-  --color-amber: #f59e0b;
+  --color-primary: #344E41;
+  --color-primary-dark: #273A31;
+  --color-primary-light: #EBF1EE;
+  
+  --color-accent: #C86D51;
+  --color-accent-light: #FAEEEA;
+  
+  --color-mint: #5BAE86;
+  --color-mint-light: #EDF7F2;
+  --color-ochre: #B58342;
+  --color-slate-blue: #385A6C;
 
-  --domain-vaso: #f97316;
-  --domain-vaso-bg: rgba(249, 115, 22, 0.12);
-  --domain-psych: #a855f7;
-  --domain-psych-bg: rgba(168, 85, 247, 0.12);
-  --domain-somatic: #06b6d4;
-  --domain-somatic-bg: rgba(6, 182, 212, 0.12);
-  --domain-sleep: #3b82f6;
-  --domain-sleep-bg: rgba(59, 130, 246, 0.12);
+  /* Domain Specific Colors - Cascaid Tonal Harmony */
+  --domain-vaso: #C86D51;
+  --domain-vaso-bg: rgba(200, 109, 81, 0.10);
+  --domain-psych: #344E41;
+  --domain-psych-bg: rgba(52, 78, 65, 0.10);
+  --domain-somatic: #B58342;
+  --domain-somatic-bg: rgba(181, 131, 66, 0.10);
+  --domain-sleep: #385A6C;
+  --domain-sleep-bg: rgba(56, 90, 108, 0.10);
 
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-heading: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  /* Typography */
+  --font-serif: 'Newsreader', 'Playfair Display', Georgia, serif;
+  --font-sans: 'Figtree', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 
-  --shadow-glow: 0 0 25px rgba(168, 85, 247, 0.25);
-  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-  --shadow-selected: 0 0 0 2px #a855f7, 0 12px 30px -8px rgba(168, 85, 247, 0.4);
+  /* Elevation & Shadows */
+  --shadow-sm: 0 1px 3px rgba(45, 42, 38, 0.05);
+  --shadow-card: 0 8px 30px -4px rgba(45, 42, 38, 0.06), 0 2px 6px -1px rgba(45, 42, 38, 0.04);
+  --shadow-hover: 0 14px 40px -6px rgba(45, 42, 38, 0.10), 0 4px 10px -2px rgba(45, 42, 38, 0.05);
+  --shadow-glow: 0 0 20px rgba(52, 78, 65, 0.18);
+  --shadow-selected: 0 0 0 2px #344E41, 0 8px 24px -4px rgba(52, 78, 65, 0.15);
 
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
+  --radius-xl: 28px;
   --radius-full: 9999px;
 
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -55,15 +68,17 @@
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--bg-deep);
+  background-color: var(--bg-page);
   color: var(--text-primary);
   min-height: 100vh;
-  line-height: 1.6;
+  line-height: 1.65;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background-image: 
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 58, 237, 0.25), transparent),
-    radial-gradient(ellipse 60% 40% at 80% 90%, rgba(6, 182, 212, 0.15), transparent),
-    radial-gradient(ellipse 40% 30% at 10% 40%, rgba(249, 115, 22, 0.08), transparent);
+    radial-gradient(ellipse 70% 40% at 50% 0%, rgba(228, 220, 208, 0.45), transparent),
+    radial-gradient(ellipse 50% 30% at 90% 80%, rgba(200, 109, 81, 0.05), transparent),
+    radial-gradient(ellipse 40% 40% at 10% 40%, rgba(52, 78, 65, 0.04), transparent);
   background-attachment: fixed;
 }
 
@@ -72,37 +87,59 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-deep);
+  background: var(--bg-page);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: #D8D0C5;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(168, 85, 247, 0.5);
+  background: #B8B0A5;
 }
 
 /* Typography Utilities */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
+h1, h2, h3 {
+  font-family: var(--font-serif);
   color: var(--text-primary);
-  font-weight: 700;
-  line-height: 1.25;
+  font-weight: 400;
+  line-height: 1.22;
+  letter-spacing: -0.015em;
 }
 
-/* Glassmorphism Surface Container */
-.glass-panel {
-  background: var(--bg-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+h1 em, h2 em, h3 em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-primary);
+}
+
+h4, h5, h6 {
+  font-family: var(--font-sans);
+  color: var(--text-secondary);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+/* Cascaid Surface Card / Glass Panel */
+.glass-panel,
+.cascaid-card {
+  background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition-normal), border-color var(--transition-normal);
+}
+
+.glass-panel:hover,
+.cascaid-card:hover {
+  border-color: var(--border-card);
 }
 
 /* Layout Utilities */
 .app-container {
-  max-width: 1080px;
+  max-width: 1120px;
   margin: 0 auto;
   padding: 0 1.5rem;
   display: flex;
@@ -115,28 +152,87 @@ h1, h2, h3, h4, h5, h6 {
   padding: 2rem 0 4rem;
 }
 
-/* Primary Radiant Button */
+/* Cascaid Status Circle Pulse Badge */
+.status {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 90px;
+  padding: 5px 16px;
+  border: 1px solid var(--border-subtle);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-sm);
+  font-size: 0.76rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.status--circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+  background-color: var(--color-mint);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.status--circle::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  animation: circle-pulse 2s infinite ease-out;
+}
+
+@keyframes circle-pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(91, 174, 134, 0.85);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 8px rgba(91, 174, 134, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(91, 174, 134, 0);
+  }
+}
+
+/* Primary Cascaid Button */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-  color: #ffffff;
+  background-color: var(--color-primary);
+  color: #FFFFFF;
   font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 1rem;
-  padding: 0.85rem 1.75rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  padding: 0.85rem 1.85rem;
   border-radius: var(--radius-full);
-  border: none;
+  border: 1px solid var(--color-primary);
   cursor: pointer;
-  box-shadow: var(--shadow-glow);
+  box-shadow: 0 2px 8px rgba(52, 78, 65, 0.15);
   transition: all var(--transition-normal);
+  text-decoration: none;
 }
 
 .btn-primary:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 0 35px rgba(168, 85, 247, 0.45);
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(52, 78, 65, 0.22);
 }
 
 .btn-primary:active:not(:disabled) {
@@ -155,22 +251,25 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--bg-surface);
   color: var(--text-primary);
   font-family: var(--font-sans);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 0.95rem;
-  padding: 0.8rem 1.5rem;
+  padding: 0.8rem 1.6rem;
   border-radius: var(--radius-full);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid var(--border-card);
   cursor: pointer;
+  box-shadow: var(--shadow-sm);
   transition: all var(--transition-normal);
+  text-decoration: none;
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: var(--bg-subtle);
+  border-color: #D6CCC0;
   transform: translateY(-1px);
+  box-shadow: var(--shadow-card);
 }
 
 /* Ghost Button */
@@ -188,7 +287,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn-ghost:hover {
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--bg-subtle);
 }
 
 /* Domain Badges */
@@ -196,47 +295,42 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-size: 0.74rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 0.25rem 0.75rem;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.85rem;
   border-radius: var(--radius-full);
 }
 
 .domain-badge.vasomotor {
   background: var(--domain-vaso-bg);
   color: var(--domain-vaso);
-  border: 1px solid rgba(249, 115, 22, 0.3);
+  border: 1px solid rgba(200, 109, 81, 0.25);
 }
 
 .domain-badge.psychological {
   background: var(--domain-psych-bg);
   color: var(--domain-psych);
-  border: 1px solid rgba(168, 85, 247, 0.3);
+  border: 1px solid rgba(52, 78, 65, 0.25);
 }
 
 .domain-badge.somatic {
   background: var(--domain-somatic-bg);
   color: var(--domain-somatic);
-  border: 1px solid rgba(6, 182, 212, 0.3);
+  border: 1px solid rgba(181, 131, 66, 0.25);
 }
 
 .domain-badge.sleep {
   background: var(--domain-sleep-bg);
   color: var(--domain-sleep);
-  border: 1px solid rgba(59, 130, 246, 0.3);
+  border: 1px solid rgba(56, 90, 108, 0.25);
 }
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.2); }
-  50% { box-shadow: 0 0 35px rgba(168, 85, 247, 0.5); }
 }
 
 .animate-fade-in {
@@ -264,7 +358,6 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 !important;
   }
 
-  /* Hide interactive web components, navigation, and background effects */
   .no-print,
   .navbar,
   .footer,
@@ -273,15 +366,14 @@ h1, h2, h3, h4, h5, h6 {
     display: none !important;
   }
 
-  /* Show print-only institutional header */
   .print-only {
     display: block !important;
   }
 
-  /* Transform glass panels into high-contrast printable document blocks */
-  .glass-panel {
+  .glass-panel,
+  .cascaid-card {
     background: #ffffff !important;
-    border: 1px solid #e5e7eb !important;
+    border: 1px solid #d8d0c5 !important;
     box-shadow: none !important;
     color: #111827 !important;
     page-break-inside: avoid;
@@ -297,7 +389,6 @@ h1, h2, h3, h4, h5, h6 {
     color: #374151 !important;
   }
 
-  /* High contrast domain badges */
   .domain-badge {
     border: 1px solid #d1d5db !important;
     color: #1f2937 !important;
@@ -308,9 +399,7 @@ h1, h2, h3, h4, h5, h6 {
     filter: none !important;
   }
 
-  /* Printable SVG text styling */
   svg text {
     fill: #1f2937 !important;
   }
 }
-
