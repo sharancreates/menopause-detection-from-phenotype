@@ -1,3 +1,14 @@
+---
+title: MenoPhenotype - Clinical Phenotype Discovery
+emoji: 🌿
+colorFrom: green
+colorTo: red
+sdk: docker
+app_port: 8000
+pinned: false
+license: mit
+---
+
 <div align="center">
 
 ```
