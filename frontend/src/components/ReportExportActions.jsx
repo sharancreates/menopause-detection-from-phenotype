@@ -17,12 +17,15 @@ export default function ReportExportActions({ assessmentResult, responses = {}, 
         algorithm: 'Gaussian Mixture Model (k=2) with Isolation Forest outlier verification',
       },
       assessment_results: {
+        stage: assessmentResult?.staging?.stage_name || null,
+        stage_details: assessmentResult?.staging || null,
         phenotype: assessmentResult?.phenotype || 'Unknown',
         confidence: assessmentResult?.confidence || null,
         is_outlier: assessmentResult?.is_outlier || false,
         outlier_score: assessmentResult?.outlier_score || null,
         imputed_features: assessmentResult?.imputed_features || [],
       },
+
       symptom_responses: responses,
       disclaimer:
         assessmentResult?.disclaimer ||

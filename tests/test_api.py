@@ -37,7 +37,7 @@ def test_health_endpoint():
 
 
 def test_metadata_endpoint():
-    """Verify GET /api/metadata delivers complete 18-symptom codebook and domain structure."""
+    """Verify GET /api/metadata delivers complete 18-symptom codebook, domain structure, and staging questions."""
     response = client.get("/api/metadata")
     assert response.status_code == 200
     data = response.json()
@@ -48,7 +48,31 @@ def test_metadata_endpoint():
     assert len(data["likert_scale"]) == 5
     assert "Phenotype A" in data["phenotypes"]
     assert "Phenotype B" in data["phenotypes"]
+    assert "staging_questions" in data
+    assert len(data["staging_questions"]) == 3
     assert "disclaimer" in data
+
+
+def test_assess_with_staging_payload(sample_symptom_data):
+    """Verify POST /api/assess includes complete STRAW+10 staging result when staging answers are provided."""
+    payload = dict(sample_symptom_data)
+    payload["age_range"] = "45-49"
+    payload["cycle_regularity"] = "skipped"
+    payload["time_since_period"] = "2_to_11_months"
+
+    response = client.post("/api/assess", json=payload)
+    assert response.status_code == 200
+    data = response.json()
+
+    assert "staging" in data
+    staging = data["staging"]
+    assert staging is not None
+    assert staging["stage_id"] == "late_perimenopause"
+    assert staging["is_near_menopause"] is True
+    assert staging["timeline_step"] == 2
+    assert "Near Menopause" in staging["stage_name"]
+    assert len(staging["physician_discussion_points"]) > 0
+
 
 
 def test_assess_valid_full_payload(sample_symptom_data):

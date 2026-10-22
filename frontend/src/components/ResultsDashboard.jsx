@@ -6,6 +6,8 @@ import OutlierAlert from './OutlierAlert.jsx';
 import DomainBreakdownGrid from './DomainBreakdownGrid.jsx';
 import DoctorDiscussionGuide from './DoctorDiscussionGuide.jsx';
 import ReportExportActions from './ReportExportActions.jsx';
+import MenopauseStageBanner from './MenopauseStageBanner.jsx';
+import { evaluateStage } from '../utils/staging.js';
 
 const DOMAIN_MAP = {
   vasomotor: ['HOTFLAS0', 'NITESWE0', 'COLDSWE0'],
@@ -55,6 +57,10 @@ export default function ResultsDashboard({
     month: 'long',
     day: 'numeric',
   });
+
+  const resolvedStaging =
+    assessmentResult.staging ||
+    evaluateStage(responses.age_range, responses.cycle_regularity, responses.time_since_period);
 
   return (
     <div className="animate-fade-in results-dashboard-root" style={{ maxWidth: '1020px', margin: '0 auto' }}>
@@ -123,8 +129,12 @@ export default function ResultsDashboard({
         </div>
       </div>
 
+      {/* Menopause Transition Stage Banner & Proximity Timeline */}
+      <MenopauseStageBanner staging={resolvedStaging} />
+
       {/* Outlier Alert Banner */}
       <OutlierAlert isOutlier={is_outlier} imputedFeatures={imputed_features} />
+
 
       {/* Top 2-Column Grid: Phenotype Card + Confidence & Radar */}
       <div

@@ -61,7 +61,7 @@ export function useQuestionnaire() {
   }, []);
 
   const nextStep = useCallback(() => {
-    setCurrentStep((prev) => Math.min(prev + 1, 5));
+    setCurrentStep((prev) => Math.min(prev + 1, 6));
   }, []);
 
   const prevStep = useCallback(() => {
@@ -69,7 +69,7 @@ export function useQuestionnaire() {
   }, []);
 
   const goToStep = useCallback((step) => {
-    setCurrentStep(Math.max(0, Math.min(step, 5)));
+    setCurrentStep(Math.max(0, Math.min(step, 6)));
   }, []);
 
   const resetDraft = useCallback(() => {
@@ -87,14 +87,18 @@ export function useQuestionnaire() {
     setIsDraftRestored(false);
   }, []);
 
-  // Computed metrics
+  // Computed metrics (counting 18 symptom items)
+  const STAGING_KEYS = ['age_range', 'cycle_regularity', 'time_since_period'];
   const answeredCount = useMemo(() => {
-    return Object.values(responses).filter((v) => v !== null && v !== undefined).length;
+    return Object.entries(responses).filter(
+      ([k, v]) => !STAGING_KEYS.includes(k) && v !== null && v !== undefined
+    ).length;
   }, [responses]);
 
   const completionPercentage = useMemo(() => {
     return Math.round((answeredCount / TOTAL_ITEMS) * 100);
   }, [answeredCount]);
+
 
   return {
     responses,

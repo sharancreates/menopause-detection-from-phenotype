@@ -98,14 +98,18 @@ def health_check() -> Dict[str, Any]:
     }
 
 
+from menophenotype.staging import STAGING_QUESTIONS
+
+
 @app.get("/api/metadata", tags=["Metadata"])
 def get_questionnaire_metadata() -> Dict[str, Any]:
-    """Retrieve full questionnaire codebook, clinical domains, Likert scale, and phenotype descriptions."""
+    """Retrieve full questionnaire codebook, clinical domains, Likert scale, phenotype descriptions, and staging questions."""
     return {
         "symptoms": QUESTIONNAIRE_ITEMS,
         "domains": DOMAINS,
         "likert_scale": LIKERT_SCALE,
         "phenotypes": PHENOTYPE_PROFILES,
+        "staging_questions": STAGING_QUESTIONS,
         "total_symptoms": len(SYMP_COLS),
         "disclaimer": CLINICAL_DISCLAIMER,
     }

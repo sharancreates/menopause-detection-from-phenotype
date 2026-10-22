@@ -235,9 +235,27 @@ CLINICAL_DISCLAIMER: str = (
 from pydantic import BaseModel, ConfigDict, Field
 
 
+class StagingResult(BaseModel):
+    stage_id: str = Field(..., description="Stage identifier (premenopause, early_perimenopause, late_perimenopause, postmenopause, surgical)")
+    stage_name: str = Field(..., description="Human-readable title (e.g. 'Late Perimenopause (Near Menopause)')")
+    stage_category: str = Field(..., description="High-level phase group")
+    timeline_step: int = Field(..., ge=0, le=3, description="Index on 4-point visual timeline (0 to 3)")
+    is_near_menopause: bool = Field(default=False, description="True if late perimenopause")
+    poi_alert: bool = Field(default=False, description="Flagged for women under 40 with amenorrhea/irregularity")
+    poi_alert_text: Optional[str] = Field(None, description="Clinical guidance for POI if flagged")
+    biological_summary: str = Field(..., description="Hormone and ovarian state explanation")
+    physician_discussion_points: List[str] = Field(default_factory=list, description="Targeted talking points for healthcare providers")
+    intake_responses: Optional[Dict[str, Optional[str]]] = Field(None, description="Raw intake choices submitted by user")
+
+
 # Pydantic Schemas for API validation
 class SymptomAssessmentInput(BaseModel):
     model_config = ConfigDict(extra="ignore")
+
+    # 3-Question Staging Intake (Optional)
+    age_range: Optional[str] = Field(None, description="Age group: '<40', '40-44', '45-49', '50-54', '55+'")
+    cycle_regularity: Optional[str] = Field(None, description="Regularity: 'regular', 'variable', 'skipped'")
+    time_since_period: Optional[str] = Field(None, description="Amenorrhea: 'within_last_month', '2_to_11_months', '12_months_or_more', 'surgical'")
 
     # 18 symptom columns optional (0 to 4)
     HOTFLAS0: Optional[int] = Field(None, ge=0, le=4)
@@ -273,7 +291,9 @@ class SymptomAssessmentOutput(BaseModel):
     domain_scores: Dict[str, float] = Field(..., description="Normalized domain severity scores (0.0 to 1.0)")
     answered_items: int = Field(..., description="Number of symptom items answered")
     total_items: int = Field(default=18, description="Total symptom items evaluated")
+    staging: Optional[StagingResult] = Field(None, description="STRAW+10 clinical transition stage assessment")
     disclaimer: str = Field(default=CLINICAL_DISCLAIMER)
 
 
 AssessmentResult = SymptomAssessmentOutput
+

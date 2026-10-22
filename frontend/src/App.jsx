@@ -3,11 +3,13 @@ import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
 import ProgressBar from './components/ProgressBar.jsx';
 import StepWelcome from './components/StepWelcome.jsx';
+import StepStagingIntake from './components/StepStagingIntake.jsx';
 import StepDomain from './components/StepDomain.jsx';
 import StepReview from './components/StepReview.jsx';
 import ResultsDashboard from './components/ResultsDashboard.jsx';
 import { useQuestionnaire } from './hooks/useQuestionnaire.js';
 import { fetchMetadata, fetchHealth, submitAssessment } from './services/api.js';
+
 
 export default function App() {
   const {
@@ -74,7 +76,7 @@ export default function App() {
 
   const handleEditAnswers = useCallback(() => {
     setAssessmentResult(null);
-    goToStep(5);
+    goToStep(6);
   }, [goToStep]);
 
   // Loading state while fallback or API metadata settles
@@ -175,6 +177,15 @@ export default function App() {
             )}
 
             {currentStep === 1 && (
+              <StepStagingIntake
+                responses={responses}
+                onSelect={setResponse}
+                onNext={nextStep}
+                onPrev={prevStep}
+              />
+            )}
+
+            {currentStep === 2 && (
               <StepDomain
                 domainKey="vasomotor"
                 symptoms={symptoms}
@@ -186,7 +197,7 @@ export default function App() {
               />
             )}
 
-            {currentStep === 2 && (
+            {currentStep === 3 && (
               <StepDomain
                 domainKey="psychological"
                 symptoms={symptoms}
@@ -198,7 +209,7 @@ export default function App() {
               />
             )}
 
-            {currentStep === 3 && (
+            {currentStep === 4 && (
               <StepDomain
                 domainKey="somatic"
                 symptoms={symptoms}
@@ -210,7 +221,7 @@ export default function App() {
               />
             )}
 
-            {currentStep === 4 && (
+            {currentStep === 5 && (
               <StepDomain
                 domainKey="sleep"
                 symptoms={symptoms}
@@ -222,7 +233,7 @@ export default function App() {
               />
             )}
 
-            {currentStep === 5 && (
+            {currentStep === 6 && (
               <StepReview
                 responses={responses}
                 symptoms={symptoms}
@@ -236,6 +247,7 @@ export default function App() {
           </>
         )}
       </main>
+
 
       <Footer />
     </div>

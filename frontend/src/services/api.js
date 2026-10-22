@@ -165,10 +165,15 @@ export async function fetchHealth() {
 }
 
 export async function submitAssessment(responses) {
+  const STAGING_KEYS = ['age_range', 'cycle_regularity', 'time_since_period'];
   const payload = {};
   for (const [key, val] of Object.entries(responses)) {
     if (val !== null && val !== undefined) {
-      payload[key] = parseInt(val, 10);
+      if (STAGING_KEYS.includes(key)) {
+        payload[key] = String(val);
+      } else {
+        payload[key] = parseInt(val, 10);
+      }
     }
   }
 

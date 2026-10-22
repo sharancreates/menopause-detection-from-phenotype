@@ -185,6 +185,14 @@ def assess(
 
     domain_scores = compute_domain_scores(symptom_answers)
 
+    # Optional STRAW+10 clinical staging
+    from menophenotype.staging import evaluate_stage
+    staging = evaluate_stage(
+        age_range=symptom_answers.get("age_range"),
+        cycle_regularity=symptom_answers.get("cycle_regularity"),
+        time_since_period=symptom_answers.get("time_since_period"),
+    )
+
     return {
         "cluster": cluster,
         "phenotype": phen_key,
@@ -197,6 +205,7 @@ def assess(
         "domain_scores": domain_scores,
         "answered_items": answered_count,
         "total_items": len(SYMP_COLS),
+        "staging": staging,
     }
 
 

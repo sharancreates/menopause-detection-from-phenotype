@@ -8,8 +8,13 @@ const DOMAIN_INFO = [
 ];
 
 export default function StepReview({ responses, symptoms, onGoToStep, onPrev, onSubmit, isSubmitting, submitError }) {
-  const answeredTotal = Object.values(responses).filter((v) => v !== null && v !== undefined).length;
+  const answeredTotal = symptoms.filter((s) => responses[s.id] !== undefined && responses[s.id] !== null).length;
   const unansweredCount = 18 - answeredTotal;
+
+  const age = responses.age_range;
+  const regularity = responses.cycle_regularity;
+  const timeSince = responses.time_since_period;
+  const hasStaging = Boolean(age || regularity || timeSince);
 
   return (
     <div className="animate-fade-in" style={{ maxWidth: '900px', margin: '0 auto' }}>
@@ -44,12 +49,52 @@ export default function StepReview({ responses, symptoms, onGoToStep, onPrev, on
           marginBottom: '0.65rem',
           color: 'var(--text-primary)'
         }}>
-          Review Your <em>Symptom Report</em>
+          Review Your <em>Clinical Assessment</em>
         </h2>
         <p style={{ fontSize: '0.96rem', color: 'var(--text-secondary)', maxWidth: '620px', margin: '0 auto', lineHeight: '1.6' }}>
-          Please review your 18 symptom responses across the 4 clinical domains before generating your
-          unsupervised Gaussian Mixture phenotype trajectory and doctor consultation brief.
+          Please review your cycle transition intake and 18 symptom responses across the 4 clinical domains
+          before generating your STRAW+10 menopause transition stage and phenotype playbook.
         </p>
+      </div>
+
+      {/* Cycle Staging Summary Card */}
+      <div
+        className="glass-panel"
+        style={{
+          padding: '1.25rem 1.75rem',
+          marginBottom: '2rem',
+          background: '#FFFFFF',
+          border: '1px solid var(--border-subtle)',
+          borderRadius: 'var(--radius-lg)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '1rem',
+        }}
+      >
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.35rem' }}>
+            <span style={{ fontSize: '1.1rem' }}>🩸</span>
+            <strong style={{ fontSize: '1rem', color: 'var(--text-primary)' }}>
+              Step 1: Cycle & Transition Staging
+            </strong>
+          </div>
+          <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+            {hasStaging
+              ? `Age: ${age || 'Not specified'} • Regularity: ${regularity || 'Not specified'} • Last Period: ${timeSince || 'Not specified'}`
+              : 'No cycle information specified (optional)'}
+          </p>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => onGoToStep(1)}
+          className="btn-secondary"
+          style={{ padding: '0.45rem 1rem', fontSize: '0.82rem' }}
+        >
+          ✏️ Edit Cycle Answers
+        </button>
       </div>
 
       {/* Domain Breakdown Grid */}
@@ -78,9 +123,10 @@ export default function StepReview({ responses, symptoms, onGoToStep, onPrev, on
                 transition: 'all var(--transition-fast)',
                 boxShadow: 'var(--shadow-card)'
               }}
-              onClick={() => onGoToStep(idx + 1)}
+              onClick={() => onGoToStep(idx + 2)}
               title="Click to review or edit this domain"
             >
+
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem' }}>
                 <span className={`domain-badge ${d.key}`} style={{ fontSize: '0.7rem' }}>
                   {d.name.split(' ')[0]}

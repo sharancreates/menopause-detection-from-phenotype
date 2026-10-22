@@ -2,12 +2,14 @@ import React from 'react';
 
 const STEPS = [
   { id: 0, label: 'Overview', domain: null },
-  { id: 1, label: 'Vasomotor', domain: 'vasomotor', count: 3 },
-  { id: 2, label: 'Psychological', domain: 'psychological', count: 6 },
-  { id: 3, label: 'Somatic', domain: 'somatic', count: 6 },
-  { id: 4, label: 'Sleep', domain: 'sleep', count: 3 },
-  { id: 5, label: 'Review', domain: null },
+  { id: 1, label: 'Cycle & Staging', domain: 'staging', count: 3 },
+  { id: 2, label: 'Vasomotor', domain: 'vasomotor', count: 3 },
+  { id: 3, label: 'Psychological', domain: 'psychological', count: 6 },
+  { id: 4, label: 'Somatic', domain: 'somatic', count: 6 },
+  { id: 5, label: 'Sleep', domain: 'sleep', count: 3 },
+  { id: 6, label: 'Review', domain: null },
 ];
+
 
 export default function ProgressBar({ currentStep, onStepClick, answeredCount, totalItems, completionPercentage }) {
   return (
