@@ -128,7 +128,9 @@ export function evaluateStage(ageRange, cycleRegularity, timeSincePeriod) {
   const normReg = (cycleRegularity || '').trim().toLowerCase();
   const normAge = (ageRange || '').trim().toLowerCase();
 
-  let stageKey = 'early_perimenopause';
+  const isUnder40 = ['<40', 'under 40', 'under_40', '< 40'].includes(normAge);
+
+  let stageKey = 'premenopause';
 
   // 1. Surgical Menopause
   if (['surgical', 'hysterectomy', 'oophorectomy'].includes(normPeriod)) {
@@ -138,26 +140,46 @@ export function evaluateStage(ageRange, cycleRegularity, timeSincePeriod) {
   else if (['12_months_or_more', '12+ months ago', '12+ months'].includes(normPeriod)) {
     stageKey = 'postmenopause';
   }
-  // 3. Late Perimenopause (Near Menopause)
+  // 3. Late Perimenopause / Prolonged Amenorrhea (skipped cycles for 60+ days or 2-11 months)
   else if (
     ['2_to_11_months', '2-11 months ago'].includes(normPeriod) ||
     ['skipped', 'skipped 2+ months'].includes(normReg)
   ) {
     stageKey = 'late_perimenopause';
   }
-  // 4. Early Perimenopause
+  // 4. Women under 40 with periods within the last 2 months are in Reproductive Age (Premenopause)
+  // Variable cycles in young women are typically PCOS, stress, or lifestyle, NOT perimenopause.
+  else if (isUnder40) {
+    stageKey = 'premenopause';
+  }
+  // 5. Women aged 40+ with variable cycle length (differs by >=7 days) -> Early Perimenopause (STRAW -2)
   else if (['variable', 'variable cycle lengths', 'variable by 7+ days'].includes(normReg)) {
     stageKey = 'early_perimenopause';
   }
-  // 5. Premenopause
-  else if (normReg === 'regular' || ['within_last_month', 'within last month'].includes(normPeriod)) {
+  // 6. Regular cycle -> Premenopause
+  else {
     stageKey = 'premenopause';
   }
 
-  const baseStage = STAGE_DEFINITIONS[stageKey];
-  const isUnder40 = ['<40', 'under 40', 'under_40', '< 40'].includes(normAge);
+  const baseStage = { ...STAGE_DEFINITIONS[stageKey] };
   const hasProlongedAmenorrhea = ['late_perimenopause', 'postmenopause'].includes(stageKey);
   const poiAlert = Boolean(isUnder40 && hasProlongedAmenorrhea);
+
+  // Tailor messaging for young women (<40) with variable cycles
+  if (
+    isUnder40 &&
+    stageKey === 'premenopause' &&
+    ['variable', 'variable cycle lengths', 'variable by 7+ days'].includes(normReg)
+  ) {
+    baseStage.stage_name = 'Premenopause (Reproductive Years)';
+    baseStage.biological_summary =
+      'You are in your active reproductive years. In women under 40, cycle variability (such as cycle lengths differing by 7 or more days) is very common and is typically driven by non-menopausal physiological factors such as stress, lifestyle, sleep patterns, Polycystic Ovary Syndrome (PCOS), or thyroid fluctuations—not natural menopausal transition or ovarian follicular decline.';
+    baseStage.physician_discussion_points = [
+      'Evaluate potential non-menopausal causes of cycle variation such as PCOS, thyroid profile, or lifestyle stress.',
+      'Track cycle lengths, luteal phase duration, and ovulation markers across 3 consecutive cycles.',
+      'Discuss lifestyle, sleep, and nutrition strategies to support hormonal balance and cycle regularity.',
+    ];
+  }
 
   return {
     stage_id: baseStage.stage_id,
@@ -177,3 +199,4 @@ export function evaluateStage(ageRange, cycleRegularity, timeSincePeriod) {
     },
   };
 }
+

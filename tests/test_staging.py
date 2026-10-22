@@ -27,7 +27,7 @@ def test_premenopause_classification():
 
 
 def test_early_perimenopause_classification():
-    """Verify variable cycle length maps to Early Perimenopause."""
+    """Verify variable cycle length in women 40+ maps to Early Perimenopause."""
     res = evaluate_stage(age_range="45-49", cycle_regularity="variable", time_since_period="within_last_month")
     assert res is not None
     assert res["stage_id"] == "early_perimenopause"
@@ -35,6 +35,19 @@ def test_early_perimenopause_classification():
     assert res["is_near_menopause"] is False
     assert res["poi_alert"] is False
     assert "Early Perimenopause" in res["stage_name"]
+
+
+def test_young_reproductive_variable_cycles_not_perimenopause():
+    """Verify young women (<40) with variable cycles map to Premenopause, NOT perimenopause."""
+    res = evaluate_stage(age_range="<40", cycle_regularity="variable", time_since_period="within_last_month")
+    assert res is not None
+    assert res["stage_id"] == "premenopause"
+    assert res["timeline_step"] == 0
+    assert res["is_near_menopause"] is False
+    assert res["poi_alert"] is False
+    assert "Premenopause" in res["stage_name"]
+    assert "PCOS" in res["biological_summary"]
+
 
 
 def test_late_perimenopause_by_skipped_cycles():

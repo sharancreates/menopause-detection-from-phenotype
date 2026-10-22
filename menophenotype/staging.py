@@ -183,6 +183,8 @@ def evaluate_stage(
     norm_reg = (cycle_regularity or "").strip().lower()
     norm_age = (age_range or "").strip().lower()
 
+    is_under_40 = norm_age in ["<40", "under 40", "under_40", "< 40"]
+
     # 1. Surgical Menopause
     if norm_period in ["surgical", "hysterectomy", "oophorectomy"]:
         stage_key = "surgical"
@@ -191,28 +193,43 @@ def evaluate_stage(
     elif norm_period in ["12_months_or_more", "12+ months ago", "12+ months"]:
         stage_key = "postmenopause"
 
-    # 3. Late Perimenopause ("Near Menopause"): skipped cycles for 60+ days or 2-11 months amenorrhea
+    # 3. Late Perimenopause / Prolonged Amenorrhea (skipped cycles of 60+ days or 2-11 months)
     elif norm_period in ["2_to_11_months", "2-11 months ago"] or norm_reg in ["skipped", "skipped 2+ months"]:
         stage_key = "late_perimenopause"
 
-    # 4. Early Perimenopause: variable cycle length by 7+ days, but period within last month
+    # 4. Women under 40 with periods within the last 2 months are in Reproductive Age (Premenopause)
+    # Variable cycles in young women are typically PCOS, stress, or lifestyle, NOT perimenopause.
+    elif is_under_40:
+        stage_key = "premenopause"
+
+    # 5. Women aged 40+ with variable cycle length (differs by >=7 days) -> Early Perimenopause (STRAW -2)
     elif norm_reg in ["variable", "variable cycle lengths", "variable by 7+ days"]:
         stage_key = "early_perimenopause"
 
-    # 5. Premenopause: regular cycle, period within last month
-    elif norm_reg in ["regular"] or norm_period in ["within_last_month", "within last month"]:
-        stage_key = "premenopause"
-
-    # Fallback to early perimenopause if indeterminate
+    # 6. Regular cycle -> Premenopause
     else:
-        stage_key = "early_perimenopause"
+        stage_key = "premenopause"
 
     base_stage = STAGE_DEFINITIONS[stage_key].copy()
 
-    # Detect Primary Ovarian Insufficiency (POI) / Premature Menopause alert
-    is_under_40 = norm_age in ["<40", "under 40", "under_40", "< 40"]
+    # Detect Primary Ovarian Insufficiency (POI) / Premature Menopause alert for under 40 with prolonged amenorrhea
     has_prolonged_amenorrhea = stage_key in ["late_perimenopause", "postmenopause"]
     poi_alert = bool(is_under_40 and has_prolonged_amenorrhea)
+
+    # Tailor messaging for young women (<40) with variable cycles
+    if is_under_40 and stage_key == "premenopause" and norm_reg in ["variable", "variable cycle lengths", "variable by 7+ days"]:
+        base_stage["stage_name"] = "Premenopause (Reproductive Years)"
+        base_stage["biological_summary"] = (
+            "You are in your active reproductive years. In women under 40, cycle variability (such as cycle lengths "
+            "differing by 7 or more days) is very common and is typically driven by non-menopausal physiological factors "
+            "such as stress, lifestyle, sleep patterns, Polycystic Ovary Syndrome (PCOS), or thyroid fluctuations—not "
+            "natural menopausal transition or ovarian follicular decline."
+        )
+        base_stage["physician_discussion_points"] = [
+            "Evaluate potential non-menopausal causes of cycle variation such as PCOS, thyroid profile, or lifestyle stress.",
+            "Track cycle lengths, luteal phase duration, and ovulation markers across 3 consecutive cycles.",
+            "Discuss lifestyle, sleep, and nutrition strategies to support hormonal balance and cycle regularity.",
+        ]
 
     result = {
         "stage_id": base_stage["stage_id"],
@@ -232,3 +249,4 @@ def evaluate_stage(
     }
 
     return result
+
