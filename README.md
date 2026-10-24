@@ -27,6 +27,8 @@ license: mit
 
 ---
 
+[![Live Demo](https://img.shields.io/badge/Render-Live_Demo-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://menopause-detection-from-phenotype.onrender.com)
+[![CI Pipeline](https://github.com/sharancreates/menopause-detection-from-phenotype/actions/workflows/ci.yml/badge.svg)](https://github.com/sharancreates/menopause-detection-from-phenotype/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
@@ -34,6 +36,7 @@ license: mit
 [![SWAN Dataset](https://img.shields.io/badge/Data-ICPSR_SWAN-purple?style=for-the-badge&logo=databricks&logoColor=white)](https://www.icpsr.umich.edu)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
+[🌐 Live Web Demo](https://menopause-detection-from-phenotype.onrender.com) •
 [✨ Overview](#-the-grand-vision) • 
 [🧬 The Phenotypes](#-the-phenotypes-a-tale-of-two-clusters) • 
 [🌌 The 14-Stage Odyssey](#-the-14-stage-research-odyssey) • 
@@ -44,10 +47,23 @@ license: mit
 
 ---
 
+<a href="https://menopause-detection-from-phenotype.onrender.com">
+  <img src="docs/assets/dashboard_preview.jpg" alt="MenoPhenotype Results Dashboard: Transition Timeline & 18-Symptom Phenotype Radar" width="100%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.12);" />
+</a>
+
+<p align="center">
+  <em>Interactive Results Dashboard: STRAW+10 Menopause Transition Timeline Gauge, Phenotype Classification, and 4-Domain Clinical Radar Chart.</em>
+  <br />
+  <strong><a href="https://menopause-detection-from-phenotype.onrender.com">👉 Experience the Live Application on Render &rarr;</a></strong>
+</p>
+
+---
+
 </div>
 
 > *"Biology doesn't draw sharp borders; it weaves tapestries of overlapping rhythms."*  
-> Welcome to **MenoPhenotype** — an end-to-end Machine Learning ecosystem discovering empirical symptom archetypes from the landmark **Study of Women's Health Across the Nation (SWAN)** dataset. We turned 3,300+ clinical interviews, 18 nuanced Likert symptom markers, and sophisticated mixture models into an interactive, deployable diagnostic playground. Heheheheh! 🚀
+> Welcome to **MenoPhenotype** — an end-to-end Machine Learning ecosystem discovering empirical symptom archetypes from the landmark **Study of Women's Health Across the Nation (SWAN)** dataset. We turned 3,300+ clinical interviews, 18 nuanced Likert symptom markers, and sophisticated mixture models into an interactive, deployable diagnostic playground. 🚀
+
 
 ---
 
